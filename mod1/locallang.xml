@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;web_txamazonaffiliateM1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="title">Amazon products</label>
+			<label index="showAll">All products</label>
+			<label index="showActive">Active products</label>
+			<label index="showInactive">Invalid products</label>
+			<label index="uid">UID</label>
+			<label index="asin">ASIN</label>
+			<label index="name">Product name</label>
+			<label index="noInvalidWidgetsFound">No invalid widgets found</label>
+			<label index="invalidWidgets">invalid Widgets:</label>
+			<label index="showInvalidWidgets">invalid Widgets</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="title">Amazon Produkte</label>
+			<label index="showActive">Aktive Produkte</label>
+			<label index="showInactive">Ungültige Produkte</label>
+			<label index="name">Product Name</label>
+			<label index="noInvalidWidgetsFound">Es wurden keine ungültigen Widgets gefunden.</label>
+			<label index="invalidWidgets">Ungültige Widgets:</label>
+			<label index="showInvalidWidgets">Ungültige Widgets</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,29 @@
+.. |img-7|      image:: ../../Images/plugin_overview.png
+.. :align: LEFT
+.. :border: 0
+.. :name: Grafik7
+.. :width: 100%
+
+.. |img-8|      image:: ../../Images/searchAndAdd_bestsellers.png
+.. :align: LEFT
+.. :border: 0
+.. :name: Grafik8
+.. :width: 100%
+
+.. |img-9|      image:: ../../Images/product_listing.png
+.. :align: LEFT
+.. :border: 0
+.. :name: Grafik9
+.. :width: 100%
+
+.. |img-10|      image:: ../../Images/book_listing.png
+.. :align: LEFT
+.. :border: 0
+.. :name: Grafik10
+.. :width: 100%
+
+.. |img-11|      image:: ../../Images/searchAndAdd.png
+.. :align: LEFT
+.. :border: 0
+.. :name: Grafik11
+.. :width: 100%

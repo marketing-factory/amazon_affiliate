@@ -1,0 +1,6 @@
+.. |img-3|      image:: ../Images/extension_manager.png
+.. :align: LEFT
+.. :border: 0
+.. :name: Grafik1
+.. :width: 100%
+

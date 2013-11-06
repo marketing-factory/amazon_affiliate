@@ -1,0 +1,154 @@
+config.tx_amazonaffiliate_piproducts.renderProducts = 1
+
+
+plugin.tx_amazonaffiliate_piproducts {
+	# Template File
+	templateFile = EXT:amazon_affiliate/piproducts/template_piproducts.tpl
+
+	#################################
+	# Product Listing Configuration #
+	#################################
+	productListing.products {
+		# Product field configuration
+		# all configured fields are mapped to a marker in the template
+		# you can get the product link by using register:lastProductLink
+
+		# the marker name is defined by the name of the field.
+		# if you want to get a value from the amazon product
+		# you have to assign the value "AMAZON_ATTR" to the field.
+		#
+		# e.g. the first marker is a marker for the product title
+		# the marker name would be "###PRODUCT_TITLE###" because the fieldname
+		# is "title"
+		# The marker is filled with the amazon Product value because
+		# the value of the field is "AMAZON_ATTR". Which field is used
+		# to get the value is configured with the ".attrName = ItemAttributes.Title"
+		# You have to assign the amazon product fieldname to the "attrName" key.
+		fields {
+
+			# map the title of the product to the title marker.
+			# It is linked with the amazon product link
+			title = AMAZON_ATTR
+			title.attrName = ItemAttributes.Title
+			title.wrap = <b>|</b>
+			title.cropHTML = 50|..|1
+			title.typolink.parameter.data = register:lastProductLink
+			title.stripHtml = 1
+
+			# map the ASIN of the product to the ASIN marker
+			asin = AMAZON_ATTR
+			asin.attrName = ASIN
+
+			# medium image
+			mediumimage = AMAZON_ATTR
+			mediumimage.attrName = MediumImage.URL
+			mediumimage.innerWrap = <img src="|" />
+			mediumimage.typolink.parameter.data = register:lastProductLink
+
+			# editorial
+			content = AMAZON_ATTR
+			content.attrName = EditorialReviews.EditorialReview.Content
+			content.stdWrap.stripHtml= 1
+			content.stdWrap.cropHTML = 150 | ... | 1
+			content.stdWrap.required= 1
+
+			price = AMAZON_ATTR
+			price.attrName = ItemAttributes.ListPrice.FormattedPrice
+			price.noTrimWrap = |<b>Preis:</b> |<br/>|
+
+			buttonurl = AMAZON_ATTR
+			buttonurl.attrName = DetailPageURL
+		}
+
+		# possible values are 110 (small) and 160 (big) for the image height
+		imageSize = 110
+
+		# the amazon sourcecode for a "only image" element
+		# The Markers ###ASIN###, ###ASSOCIATE_TAG###, ###IMAGE_SIZE###, ###NO_HOVER### and ###COUNTRY### will be replaced by the corresponding values
+		imageCode (
+		 	<a href="http://www.amazon.de/gp/product/###ASIN###/ref=as_li_tf_il?ie=UTF8&tag=###ASSOCIATE_TAG###&linkCode=as2&camp=1638&creative=6742&creativeASIN=###ASIN###">
+		 	<img border="0" src="http://ws.assoc-amazon.de/widgets/q?_encoding=UTF8&Format=_SL###IMAGE_SIZE###_&ASIN=###ASIN###&MarketPlace=###COUNTRY###&ID=AsinImage&WS=1&tag=###ASSOCIATE_TAG###&ServiceVersion=20070822" ###NO_HOVER###>
+		 	</a>
+		 	<span class="img_no_scale">
+		 		<img src="http://www.assoc-amazon.de/e/ir?t=###ASSOCIATE_TAG###&l=as2&o=3&a=###ASIN###" width="1" height="1"border="0" alt="" style="border:none !important; margin:0px !important;" />
+		 	</span>
+         )
+	}
+
+	#######################
+	# Books Configuration #
+	#######################
+	productListing.books.fields {
+		# title ist ein frei waehlbarer Wert. Dieser Wert wird dann fuer den Marker verwendet. Der Marker im Template laesst sich dann mit "###PRODUCT_TITLE###" abfragen
+		# wenn es sich um ein Amazon Feld handelt, muss dem Feld der Wert "AMAZON_ATTR" zugewiesen werden.
+		# welches feld verwendet wird, kann mit der Feldoption "attrName" festgelegt werden.
+
+		title = AMAZON_ATTR
+		title.attrName = ItemAttributes.Title
+		title.wrap = <b>|</b>
+		title.typolink.parameter.data = register:lastProductLink
+
+		author = AMAZON_ATTR
+		author.attrName = ItemAttributes.Author
+		author.stdWrap.noTrimWrap = |<b>Autor:</b> |<br/>|
+		author.stdWrap.required = 1
+
+		mediumimage = AMAZON_ATTR
+		mediumimage.attrName = MediumImage.URL
+		mediumimage.innerWrap = <img src="|" />
+		mediumimage.typolink.parameter.data = register:lastProductLink
+
+		content = AMAZON_ATTR
+		content.attrName = EditorialReviews.EditorialReview.Content
+		content.stdWrap.stripHtml= 1
+		content.stdWrap.cropHTML = 150 | ... | 1
+		content.stdWrap.wrap = <b>Inhalt:</b><br/>
+		content.stdWrap.required= 1
+
+		date = AMAZON_ATTR
+		date.attrName = ItemAttributes.PublicationDate
+		date.noTrimWrap = |<b>Erscheinungsdatum:</b> |<br/>|
+
+		price = AMAZON_ATTR
+		price.attrName = ItemAttributes.ListPrice.FormattedPrice
+		price.noTrimWrap = |<b>Preis:</b> |<br/>|
+
+		isbn = AMAZON_ATTR
+		isbn.attrName = ItemAttributes.ISBN
+		isbn.noTrimWrap = |<b>ISBN:</b> |<br/>|
+
+		buttonurl = AMAZON_ATTR
+		buttonurl.attrName = DetailPageURL
+
+	}
+
+	########################
+	# Linkhandler Settings #
+	########################
+	linkhandler {
+		# url which is used to create the linkpicker urls
+		# The Markers ###ASIN### and ###ASSOCIATE_TAG### will be replaced by the corresponding values
+		url = http://www.amazon.de/gp/product/###ASIN###/ref=as_li_tf_tl?ie=UTF8&tag=###ASSOCIATE_TAG###&linkCode=as2&camp=1638&creative=6742&creativeASIN=###ASIN###
+
+		# urlStdWrap around the a-tag
+		urlStdWrap = |<span class="img_no_scale"><img src="http://www.assoc-amazon.de/e/ir?t=###ASSOCIATE_TAG###&l=as2&o=3&a=###ASIN###" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></span>
+
+		# defualt target for the linkpicker urls
+		target = _blank
+	}
+
+	# Amazon JS files which will be included if needed
+	amazonJS {
+		# the MouseOver JavaScript
+		hover = <script type="text/javascript" src="http://wms.assoc-amazon.de/20070822/DE/js/link-enhancer-common.js?tag=###ASSOCIATE_TAG###"></script><noscript><img src="http://wms.assoc-amazon.de/20070822/DE/img/noscript.gif?tag=###ASSOCIATE_TAG###" alt="" /></noscript>
+	}
+}
+
+
+
+# extend the IMAGE and TEXTPIC rendering
+tt_content.image.20.userFunc = tx_amazonaffiliate_renderhooks->render_textpic
+tt_content.image.20.amazonImgList.field = tx_amazonaffiliate_amazon_asin
+tt_content.image.20.stdWrap.wrap.cObject = TEXT
+tt_content.image.20.stdWrap.wrap.cObject.value = <div class="amazon-image">|</div>
+tt_content.image.20.stdWrap.wrap.cObject.if.isTrue.field = tx_amazonaffiliate_amazon_asin

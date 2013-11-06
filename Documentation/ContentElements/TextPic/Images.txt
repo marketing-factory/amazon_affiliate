@@ -1,0 +1,18 @@
+.. |img-4|      image:: ../../Images/use_as_link.png
+.. :align: LEFT
+.. :border: 0
+.. :name: Grafik4
+.. :width: 100%
+
+.. |img-5|      image:: ../../Images/include_new_image.png
+.. :align: LEFT
+.. :border: 0
+.. :name: Grafik5
+.. :width: 100%
+
+
+.. |img-6|      image:: ../../Images/verification_failed.png
+.. :align: LEFT
+.. :border: 0
+.. :name: Grafik6
+.. :width: 100%
