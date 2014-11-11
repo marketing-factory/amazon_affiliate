@@ -389,7 +389,11 @@ class tx_amazonaffiliate_product {
 	 */
 	public function setAmazonProduct($amazonProduct) {
 		if ($amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] == '') {
-			$amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] = $amazonProduct['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
+			if (!isset($amazonProduct['Offers']['Offer']['OfferListing']['SalePrice']['FormattedPrice'])) {
+				$amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] = $amazonProduct['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
+			} else {
+				$amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] = $amazonProduct['Offers']['Offer']['OfferListing']['SalePrice']['FormattedPrice'];
+			}
 		}
 		if ($amazonProduct['MediumImage']['URL'] == '') {
 			$amazonProduct['MediumImage']['URL']  = $amazonProduct['ImageSets']['ImageSet']['MediumImage']['URL'];

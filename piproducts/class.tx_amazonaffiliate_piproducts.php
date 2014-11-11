@@ -227,7 +227,11 @@ class tx_amazonaffiliate_piproducts extends tslib_pibase {
 					if (!isset($item['ItemAttributes']) || !isset($item['ItemAttributes']['ListPrice']) ||
 							!isset($item['ItemAttributes']['FormattedPrice']) ||
 							$item['ItemAttributes']['ListPrice']['FormattedPrice'] == '') {
-						$item['ItemAttributes']['ListPrice']['FormattedPrice'] = $item['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
+						if (!isset($item['Offers']['Offer']['OfferListing']['SalePrice']['FormattedPrice'])) {
+							$item['ItemAttributes']['ListPrice']['FormattedPrice'] = $item['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
+						} else {
+							$item['ItemAttributes']['ListPrice']['FormattedPrice'] = $item['Offers']['Offer']['OfferListing']['SalePrice']['FormattedPrice'];
+						}
 					}
 					if (!isset($item['MediumImage']) || !isset($item['MediumImage']['URL']) || $item['MediumImage']['URL'] == '') {
 						$item['MediumImage']['URL'] = $item['ImageSets']['ImageSet']['MediumImage']['URL'];
