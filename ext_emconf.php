@@ -10,7 +10,7 @@
  * writing. "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'Amazon Affiliate',
     'description' => '',
     'category' => 'Marketing Factory',
@@ -29,14 +29,15 @@ $EM_CONF[$_EXTKEY] = array(
     'clearCacheOnLoad' => 0,
     'lockType' => '',
     'author_company' => '',
-    'version' => '2.2.2',
-    'constraints' => array(
-        'depends' => array(
-            'typo3' => '6.2.0-6.9.99',
-        ),
-        'conflicts' => array(),
-        'suggests' => array(),
-    ),
+    'version' => '3.0.0',
+    'constraints' => [
+        'depends' => [
+            'php' => '5.5.0-7.99.99',
+            'typo3' => '7.6.0-7.99.99',
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ],
     '_md5_values_when_last_written' => '',
-    'suggests' => array(),
-);
+    'suggests' => [],
+];

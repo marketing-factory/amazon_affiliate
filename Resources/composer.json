@@ -1,0 +1,23 @@
+{
+  "name": "mfc/amazon-affiliate",
+  "description": "",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Alexander Schnitzler",
+      "email": "typo3@alexanderschnitzler.de"
+    }
+  ],
+  "config": {
+    "vendor-dir": "PHP"
+  },
+  "require": {
+    "php": ">=5.5.0",
+    "exeu/amazon-ecs-php": "~1.3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mfc\\AmazonAffiliate\\": "Classes/"
+    }
+  }
+}

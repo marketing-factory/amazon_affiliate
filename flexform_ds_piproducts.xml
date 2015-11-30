@@ -225,7 +225,7 @@
 							<label>Sub BrowseNode</label>
 							<config>
 								<type>select</type>
-								<itemsProcFunc>tx_amazonaffiliate_amazonecs->getBrowseNodesSelectItems</itemsProcFunc>
+								<itemsProcFunc>Mfc\AmazonAffiliate\Service\AmazonEcsService->getBrowseNodesSelectItems</itemsProcFunc>
 								<items>
 									<numIndex index="0" type="array">
 										<numIndex index="0">---</numIndex>

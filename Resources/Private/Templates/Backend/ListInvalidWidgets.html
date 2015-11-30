@@ -1,0 +1,32 @@
+{namespace core = TYPO3\CMS\Core\ViewHelpers}
+<h1>{title}</h1>
+
+<f:if condition="{invalidWidgets->f:count()} > 0">
+	<f:then>
+		<table id="table" class="table table-striped">
+			<thead>
+				<tr>
+					<th><strong>UID</strong></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			<f:for each="{invalidWidgets}" as="invalidWidget">
+				<tr>
+					<td>{invalidWidget.uid}</td>
+					<td align="right">
+						<a class="btn btn-default" href="{invalidWidget.edit_url}">
+							<core:icon identifier="actions-page-open"/>
+						</a>
+					</td>
+				</tr>
+			</f:for>
+			</tbody>
+		</table>
+	</f:then>
+	<f:else>
+		<div class="alert alert-info" role="alert">
+			<strong>{noInvalidWidgetsFoundMessage}</strong>
+		</div>
+	</f:else>
+</f:if>

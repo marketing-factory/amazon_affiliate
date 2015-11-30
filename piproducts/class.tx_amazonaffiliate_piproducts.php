@@ -23,48 +23,86 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Mfc\AmazonAffiliate\Domain\Model\Product;
+use Mfc\AmazonAffiliate\Service\AmazonEcsService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 
 /**
  * Plugin 'Amazon Widget' for the 'amazon_affiliate' extension.
  *
- * @author    Sascha Egerer <info@sascha-egerer.de>
- * @package    TYPO3
- * @subpackage    tx_amazonaffiliate
+ * @author Sascha Egerer <info@sascha-egerer.de>
+ * @package TYPO3
+ * @subpackage tx_amazonaffiliate
  */
 class tx_amazonaffiliate_piproducts extends AbstractPlugin
 {
-    // Same as class name
+    /**
+     * Same as class name
+     *
+     * @var string
+     */
     public $prefixId = 'tx_amazonaffiliate_piproducts';
-    // Path to this script relative to the extension dir.
-    public $scriptRelPath = 'piproducts/class.tx_amazonaffiliate_piproducts.php';
-    // The extension key.
-    public $extKey = 'amazon_affiliate';
-    public $pi_checkCHash = true;
-    public $limit = 10;
-    public $extConf = array();
 
-    public $mode = 'products'; //extension mode. could be 'products' or 'widget'
+    /**
+     * Path to this script relative to the extension dir.
+     *
+     * @var string
+     */
+    public $scriptRelPath = 'piproducts/class.tx_amazonaffiliate_piproducts.php';
+
+    /**
+     * The extension key.
+     *
+     * @var string
+     */
+    public $extKey = 'amazon_affiliate';
+
+    /**
+     * @var bool
+     */
+    public $pi_checkCHash = true;
+
+    /**
+     * @var int
+     */
+    public $limit = 10;
+
+    /**
+     * @var array
+     */
+    public $extConf = [];
+
+    /**
+     * extension mode. could be 'products' or 'widget'
+     *
+     * @var string
+     */
+    public $mode = 'products';
+
     /**
      * list of ASIN's to display
      *
      * @var array
      */
-    public $asinArray = array();
+    public $asinArray = [];
+
+    /**
+     * @var string
+     */
     public $templateCode = '';
 
     /**
-     * @var tx_amazonaffiliate_amazonecs $amazonEcs
+     * @var AmazonEcsService $amazonEcs
      */
     public $amazonEcs;
 
     /**
      * The main method of the PlugIn
      *
-     * @param    string $content : The PlugIn content
-     * @param    array $conf : The PlugIn configuration
-     * @return    string The content that is displayed on the website
+     * @param string $content : The PlugIn content
+     * @param array $conf : The PlugIn configuration
+     * @return string The content that is displayed on the website
      */
     public function main($content, $conf)
     {
@@ -94,7 +132,7 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
         );
 
         try {
-            $this->amazonEcs = GeneralUtility::makeInstance('tx_amazonaffiliate_amazonecs');
+            $this->amazonEcs = GeneralUtility::makeInstance(AmazonEcsService::class);
         } catch (Exception $e) {
             GeneralUtility::sysLog(
                 "Amazon Lookup Error! " . $e->getMessage(),
@@ -109,10 +147,10 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
         $content = "";
         if (in_array(
             $this->mode,
-            array("products", "ASINList", "SearchAndAdd", "Bestsellers", "NewReleases", "MostWishedFor", "MostGifted")
+            ["products", "ASINList", "SearchAndAdd", "Bestsellers", "NewReleases", "MostWishedFor", "MostGifted"]
         )) {
             $content = $this->renderProducts();
-        } elseif (in_array($this->mode, array("books"))) {
+        } elseif (in_array($this->mode, ["books"])) {
             $content = $this->renderBooks();
         }
 
@@ -125,7 +163,7 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
      */
     protected function renderProducts()
     {
-        if (in_array($this->mode, array("products", "ASINList"))) {
+        if (in_array($this->mode, ["products", "ASINList"])) {
             $data = $this->fetchDataByAsin();
         } else {
             $data = $this->fetchDataBySearch();
@@ -134,6 +172,9 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
         return $this->renderProductLists('products', $data);
     }
 
+    /**
+     * @return string
+     */
     protected function renderBooks()
     {
         $data = $this->fetchDataByAsin();
@@ -146,13 +187,13 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
      */
     protected function fetchDataByAsin()
     {
-        $results = array();
+        $results = [];
 
         if (!empty($this->asinArray)) {
             $this->amazonEcs->preloadProducts($this->asinArray);
 
             foreach ($this->asinArray as $asin) {
-                $results[] = GeneralUtility::makeInstance('tx_amazonaffiliate_product', $asin);
+                $results[] = GeneralUtility::makeInstance(Product::class, $asin);
             }
         }
 
@@ -176,8 +217,8 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
 
         $this->amazonEcs->category(($category != '') ? $category : 'All');
 
-        $results = array();
-        $data = array();
+        $results = [];
+        $data = [];
 
         if ($this->mode == 'SearchAndAdd') {
             try {
@@ -197,7 +238,7 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
                 // solve problem if amazon delivers a single item
                 if (isset($data['Items']['Item']['ASIN'])) {
                     $tempData = $data['Items']['Item'];
-                    $data['Items']['Item'] = array();
+                    $data['Items']['Item'] = [];
                     $data['Items']['Item'][] = $tempData;
                 }
                 foreach ($data['Items']['Item'] as $item) {
@@ -227,7 +268,7 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
                         $item['ItemAttributes']['ListPrice']['FormattedPrice'] != ''
                     ) {
                         $results[] =
-                            GeneralUtility::makeInstance('tx_amazonaffiliate_product')->setDataWithArray($item);
+                            GeneralUtility::makeInstance(Product::class)->setDataWithArray($item);
                     }
                 }
             }
@@ -250,7 +291,7 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
     protected function getTopSellersData(array $topSellers)
     {
 
-        $this->asinArray = array();
+        $this->asinArray = [];
         $i = 0;
         foreach ($topSellers as $topSeller) {
             if ($i < $this->limit) {
@@ -281,7 +322,7 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
 
         $result = '';
         if (!empty($products)) {
-            /** @var tx_amazonaffiliate_product $product */
+            /** @var Product $product */
             foreach ($products as $product) {
                 if ($product->getStatus() == true) {
                     $marker = $this->renderProductMarkers($product, $mode);
@@ -293,41 +334,42 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
         return $this->cObj->substituteSubpart($template, '###PRODUCT_ITEMS###', $result);
     }
 
-
     /**
      * Fills the markers which are defined in TypoScript
      *
-     * @param tx_amazonaffiliate_product $product Product
+     * @param Product $product Product
      * @param string $mode Mode
      *
      * @return array
      */
-    public function renderProductMarkers(tx_amazonaffiliate_product $product, $mode)
+    public function renderProductMarkers(Product $product, $mode)
     {
-        $marker = array();
+        $marker = [];
 
         $GLOBALS['TSFE']->register['lastProductLink'] = $product->getItemAttribute('DetailPageURL');
 
-        foreach ($this->conf['productListing.'][$mode . '.']['fields.'] as $key => $field) {
-            if (!is_array($field)) {
-                $fieldOptions = $this->conf['productListing.'][$mode . '.']['fields.'][$key . "."];
+        if (isset($this->conf['productListing.'][$mode . '.']['fields.'])) {
+            foreach ($this->conf['productListing.'][$mode . '.']['fields.'] as $key => $field) {
+                if (!is_array($field)) {
+                    $fieldOptions = $this->conf['productListing.'][$mode . '.']['fields.'][$key . "."];
 
-                if ($field == "AMAZON_ATTR" && $fieldOptions['attrName'] != '') {
-                    // if it is a amazon product field
-                    if (is_string($product->getItemAttribute($fieldOptions['attrName']))) {
-                        $fieldValue = utf8_encode($product->getItemAttribute($fieldOptions['attrName']));
+                    if ($field == "AMAZON_ATTR" && $fieldOptions['attrName'] != '') {
+                        // if it is a amazon product field
+                        if (is_string($product->getItemAttribute($fieldOptions['attrName']))) {
+                            $fieldValue = utf8_encode($product->getItemAttribute($fieldOptions['attrName']));
+                        } else {
+                            $fieldValue = "";
+                        }
+                        $marker["PRODUCT_" . strtoupper($key)] = $this->cObj->stdWrap($fieldValue, $fieldOptions);
                     } else {
-                        $fieldValue = "";
+                        // simple stdWrap
+                        $marker["PRODUCT_" . strtoupper($key)] = $this->cObj->stdWrap($field, $fieldOptions);
                     }
-                    $marker["PRODUCT_" . strtoupper($key)] = $this->cObj->stdWrap($fieldValue, $fieldOptions);
-                } else {
-                    // simple stdWrap
-                    $marker["PRODUCT_" . strtoupper($key)] = $this->cObj->stdWrap($field, $fieldOptions);
                 }
             }
-
         }
 
         return $marker;
     }
+
 }

@@ -1,0 +1,27 @@
+{namespace core = TYPO3\CMS\Core\ViewHelpers}
+<h1>ASIN: {asin}</h1>
+
+<f:if condition="{rows->f:count()} > 0">
+	<table id="table" class="table table-striped">
+		<thead>
+			<tr>
+				<th>UID</th>
+				<th>Table</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		<f:for each="{rows}" as="row">
+			<tr>
+				<td>{row.uid}</td>
+				<td>{row.tablename}</td>
+				<td align="right">
+					<a class="btn btn-default" href="{row.edit_url}">
+						<core:icon identifier="actions-page-open"/>
+					</a>
+				</td>
+			</tr>
+		</f:for>
+		</tbody>
+	</table>
+</f:if>

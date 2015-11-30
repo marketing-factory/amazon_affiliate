@@ -1,0 +1,27 @@
+{
+  "name": "mfc/amazon-affiliate",
+  "description": "",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Sascha Egerer",
+      "email": "info@sascha-egerer.de"
+    },
+    {
+      "name": "Simon Schmidt",
+      "email": "typo3@marketing-factory.de"
+    },
+    {
+      "name": "Alexander Schnitzler",
+      "email": "typo3@alexanderschnitzler.de"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mfc\\AmazonAffiliate\\": "Classes/"
+    }
+  }
+}
