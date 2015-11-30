@@ -28,6 +28,8 @@
  */
 
 
+
+
 /**
  * Class that adds the wizard icon.
  *
@@ -40,20 +42,19 @@ class tx_amazonaffiliate_piproducts_wizicon {
 	/**
 	 * Processing the wizard items array
 	 *
-	 * @param array $wizardItems: The wizard items
-	 * @return array modified array with wizard items
+	 * @param	array $wizardItems: The wizard items
+	 * @return	array $wizardItemsModified array with wizard items
 	 */
-	public function proc($wizardItems) {
-		/** @var language $language */
-		$language = $GLOBALS['LANG'];
+	function proc($wizardItems)	{
+		global $LANG;
 
 		$LL = $this->includeLocalLang();
 
 		$wizardItems['plugins_tx_amazonaffiliate_piproducts'] = array(
-			'icon' => t3lib_extMgm::extRelPath('amazon_affiliate') . 'piproducts/ce_wiz.gif',
-			'title' => $language->getLLL('piproducts_title', $LL),
-			'description' => $language->getLLL('piproducts_plus_wiz_description', $LL),
-			'params' => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=amazon_affiliate_piproducts'
+			'icon'=>\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('amazon_affiliate').'piproducts/ce_wiz.gif',
+			'title'=>$LANG->getLLL('piproducts_title',$LL),
+			'description'=>$LANG->getLLL('piproducts_plus_wiz_description',$LL),
+			'params'=>'&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=amazon_affiliate_piproducts'
 		);
 
 		return $wizardItems;
@@ -62,19 +63,21 @@ class tx_amazonaffiliate_piproducts_wizicon {
 	/**
 	 * Reads the [extDir]/locallang.xml and returns the $LOCAL_LANG array found in that file.
 	 *
-	 * @return array The array with language labels
+	 * @return	string The array with language labels
 	 */
-	public function includeLocalLang() {
-		/** @var language $language */
-		$language = $GLOBALS['LANG'];
-		$llFile = t3lib_extMgm::extPath('amazon_affiliate') . 'locallang.xml';
-		$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $language->lang);
+	function includeLocalLang()	{
+		$llFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('amazon_affiliate') . 'locallang.xml';
+		/** @var \TYPO3\CMS\Core\Localization\Parser\LocallangXmlParser $llXmlParser */
+		$llXmlParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\\CMS\\Core\\Localization\\Parser\\LocallangXmlParser');
+		$localLang = $llXmlParser->getParsedData($llFile, $GLOBALS['LANG']->lang);
 
-		return $LOCAL_LANG;
+		return $localLang;
 	}
 }
 
-if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/amazon_affiliate/piproducts/class.tx_amazonaffiliate_piproducts_wizicon.php']) {
+
+
+if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/amazon_affiliate/piproducts/class.tx_amazonaffiliate_piproducts_wizicon.php'])	{
 	/** @noinspection PhpIncludeInspection */
 	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/amazon_affiliate/piproducts/class.tx_amazonaffiliate_piproducts_wizicon.php']);
 }

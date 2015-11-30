@@ -11,7 +11,7 @@ country = de
 associate_tag =
 
  # cat=basic; type=input; label=Minimum products for  "ASINList"
-minimumAsinlistCount = 1
+minimumAsinlistCount = 5
 
 # cat=basic; type=input; label=maximum products for "Bestsellers,SearchAndAdd"
 displayLimit = 10

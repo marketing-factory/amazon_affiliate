@@ -27,16 +27,12 @@
  * Hint: use extdeveval to insert/update function index above.
  */
 
-/** @var language $language */
-$language = $GLOBALS['LANG'];
-$language->includeLLFile('EXT:amazon_affiliate/mod1/locallang.xml');
-	// This checks permissions and exits if the users has no permission for entry.
-/** @var t3lib_beUserAuth $backendUser */
-$backendUser = $GLOBALS['BE_USER'];
-/** @noinspection PhpUndefinedVariableInspection */
-$backendUser->modAccess($MCONF, 1);
-	// DEFAULT initialization of a module [END]
 
+$LANG->includeLLFile('EXT:amazon_affiliate/mod1/locallang.xml');
+$BE_USER->modAccess($MCONF, 1); // This checks permissions and exits if the users has no permission for entry.
+// DEFAULT initialization of a module [END]
+
+require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('amazon_affiliate') . 'lib/class.tx_amazonaffiliate_product.php');
 
 /**
  * Module 'Amazon Products' for the 'amazon_affiliate' extension.
@@ -45,31 +41,34 @@ $backendUser->modAccess($MCONF, 1);
  * @package	TYPO3
  * @subpackage	tx_amazonaffiliate
  */
-class  tx_amazonaffiliate_module1 extends t3lib_SCbase {
-	/**
-	 * @var
-	 */
-	public $pageinfo;
+class  tx_amazonaffiliate_module1 extends \TYPO3\CMS\Backend\Module\BaseScriptClass {
+	var $pageinfo;
+
+	public $amazonEcs;
 
 	/**
-	 * @var tx_amazonaffiliate_amazonecs
+	 * Initializes the Module
+	 * @return	void
 	 */
-	public $amazonEcs;
+	function init() {
+		global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
+
+		parent::init();
+	}
 
 	/**
 	 * Adds items to the ->MOD_MENU array. Used for the function menu selector.
 	 *
 	 * @return	void
 	 */
-	public function menuConfig() {
-		/** @var language $language */
-		$language = $GLOBALS['LANG'];
+	function menuConfig() {
+		global $LANG;
 		$this->MOD_MENU = Array(
 			'function' => Array(
-				'1' => $language->getLL('showInactive'),
-				'2' => $language->getLL('showActive'),
-				'3' => $language->getLL('showAll'),
-				'4' => $language->getLL('showInvalidWidgets'),
+				'1' => $LANG->getLL('showInactive'),
+				'2' => $LANG->getLL('showActive'),
+				'3' => $LANG->getLL('showAll'),
+				'4' => $LANG->getLL('showInvalidWidgets'),
 			)
 		);
 		parent::menuConfig();
@@ -77,53 +76,52 @@ class  tx_amazonaffiliate_module1 extends t3lib_SCbase {
 
 	/**
 	 * Main function of the module. Write the content to $this->content
-	 * If you chose 'web' as main module, you will need to consider the $this->id parameter which will contain the uid-number of the page clicked in the page tree
+	 * If you chose "web" as main module, you will need to consider the $this->id parameter which will contain the uid-number of the page clicked in the page tree
 	 *
-	 * @return void
+	 * @return void [type]        ...
 	 */
-	public function main() {
-		/** @var language $language */
-		$language = $GLOBALS['LANG'];
-		/** @var t3lib_beUserAuth $beUser */
-		$beUser = $GLOBALS['BE_USER'];
+	function main() {
+		global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
 
-			// Draw the header.
-		$this->doc = t3lib_div::makeInstance('bigDoc');
-		$this->doc->backPath = $GLOBALS['BACK_PATH'];
+		// Draw the header.
+		$this->doc = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('bigDoc');
+		$this->doc->backPath = $BACK_PATH;
 		$this->doc->form = '<form action="" method="post" enctype="multipart/form-data">';
 
-			// JavaScript
+		// JavaScript
 		$this->doc->JScode = '
-				<script language="javascript" type="text/javascript">
-					script_ended = 0;
-					function jumpToUrl(URL) {
-						document.location = URL;
-					}
-				</script>
-			';
+							<script language="javascript" type="text/javascript">
+								script_ended = 0;
+								function jumpToUrl(URL)	{
+									document.location = URL;
+								}
+							</script>
+						';
 		$this->doc->postCode = '
-				<script language="javascript" type="text/javascript">
-					script_ended = 1;
-					if (top.fsMod) top.fsMod.recentIds["web"] = 0;
-				</script>
-			';
+							<script language="javascript" type="text/javascript">
+								script_ended = 1;
+								if (top.fsMod) top.fsMod.recentIds["web"] = 0;
+							</script>
+						';
 
 		$this->doc->inDocStylesArray['tx_amazonaffiliate_mod1'] = '
 				#typo3-page-stdlist td {padding:2px;}
 			';
 
-		$headerSection = '';
-		$this->content .= $this->doc->startPage($language->getLL('title'));
-		$this->content .= $this->doc->header($language->getLL('title'));
+		$headerSection = "";
+		$this->content .= $this->doc->startPage($LANG->getLL('title'));
+		$this->content .= $this->doc->header($LANG->getLL('title'));
 		$this->content .= $this->doc->spacer(5);
-		$this->content .= $this->doc->section('', $this->doc->funcMenu($headerSection, t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function'])));
+		$this->content .= $this->doc->section('', $this->doc->funcMenu($headerSection, \TYPO3\CMS\Backend\Utility\BackendUtility::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function'])));
 		$this->content .= $this->doc->divider(5);
 
-			// Render content:
+
+		// Render content:
 		$this->moduleContent();
 
-			// ShortCut
-		if ($beUser->mayMakeShortcut()) {
+
+		// ShortCut
+		if($BE_USER->mayMakeShortcut()) {
 			$this->content .= $this->doc->spacer(20) . $this->doc->section('', $this->doc->makeShortcutIcon('id', implode(',', array_keys($this->MOD_MENU)), $this->MCONF['name']));
 		}
 
@@ -135,7 +133,8 @@ class  tx_amazonaffiliate_module1 extends t3lib_SCbase {
 	 *
 	 * @return	void
 	 */
-	public function printContent() {
+	function printContent() {
+
 		$this->content .= $this->doc->endPage();
 		echo $this->content;
 	}
@@ -145,26 +144,25 @@ class  tx_amazonaffiliate_module1 extends t3lib_SCbase {
 	 *
 	 * @return	void
 	 */
-	public function moduleContent() {
-		$this->amazonEcs = t3lib_div::makeInstance('tx_amazonaffiliate_amazonecs');
-			/** @var $databaseHandle t3lib_DB */
-		$databaseHandle = $GLOBALS['TYPO3_DB'];
-			/** @var language $language */
-		$language = $GLOBALS['LANG'];
+	function moduleContent() {
 
-		if (t3lib_div::_GP('showAsin') && preg_match('/^[a-z0-9]{10}$/i', t3lib_div::_GP('showAsin'))) {
-			$outputString = '<a href="' . t3lib_div::linkThisScript(array('showAsin' => '')) . '">&lt; zur&uuml;ck</a><br />';
+		$this->amazonEcs = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_amazonaffiliate_amazonecs');
 
-				// find all records with the given ASIN
+
+		if(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('showAsin') && preg_match('/^[a-z0-9]{10}$/i', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('showAsin'))) {
+			$outputString = '<a href="' . \TYPO3\CMS\Core\Utility\GeneralUtility::linkThisScript(array("showAsin" => '')) . '">&lt; zur&uuml;ck</a><br />';
+
+			// find all records with the given ASIN
+
 			$recordUidList = array();
 
 			/** @var $tx_amazonaffiliate_updatestatus tx_amazonaffiliate_updatestatus */
-			$tx_amazonaffiliate_updatestatus = t3lib_div::makeInstance('tx_amazonaffiliate_updatestatus');
+			$tx_amazonaffiliate_updatestatus = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_amazonaffiliate_updatestatus');
 
-			$records = $tx_amazonaffiliate_updatestatus->find('amazonaffiliate:' . t3lib_div::_GP('showAsin'));
+			$records = $tx_amazonaffiliate_updatestatus->find("amazonaffiliate:" . \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('showAsin'));
 
-			if (is_array($records)) {
-				foreach ($records as $record) {
+			if(is_array($records)) {
+				foreach($records as $record) {
 					$recordUidList[] = array(
 						'tablename' => $record['__database_table'],
 						'uid' => $record['uid']
@@ -175,14 +173,14 @@ class  tx_amazonaffiliate_module1 extends t3lib_SCbase {
 			/**
 			 * get all products from the tt_content image records
 			 */
-			$records = $databaseHandle->exec_SELECTgetRows('uid',
+			$records = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid',
 				'tt_content',
-					'(tx_amazonaffiliate_amazon_asin = "' . t3lib_div::_GP('showAsin') .
-						'" OR pi_flexform LIKE "%' . t3lib_div::_GP('showAsin') . '%")' . t3lib_befunc::deleteClause('tt_content')
+					'(tx_amazonaffiliate_amazon_asin = "' . \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('showAsin') .
+						'" OR pi_flexform LIKE "%' . \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('showAsin') . '%")' . \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause('tt_content')
 			);
 
-			if (is_array($records)) {
-				foreach ($records as $record) {
+			if(is_array($records)) {
+				foreach($records as $record) {
 					$recordUidList[] = array(
 						'tablename' => 'tt_content',
 						'uid' => $record['uid']
@@ -190,106 +188,108 @@ class  tx_amazonaffiliate_module1 extends t3lib_SCbase {
 				}
 			}
 
-			foreach ($recordUidList as $record) {
-				$content = '<br />' . $language->sL($GLOBALS['TCA'][$record['tablename']]['ctrl']['title']) . ': UID ' . $record['uid'];
+			foreach($recordUidList as $record) {
+
+				$content = "<br />" . $GLOBALS['LANG']->sL($GLOBALS['TCA'][$record['tablename']]['ctrl']['title']) . ": UID " . $record['uid'];
+				//	$record
 				$content .= ' <a href="' . $GLOBALS['BACK_PATH'] . 'alt_doc.php?returnUrl=' .
-					rawurlencode(t3lib_div::getIndpEnv('REQUEST_URI')) . '&edit[' .
-					$record['tablename'] . '][' . $record['uid'] . ']=edit" style="font-weight:bold">edit</a>';
+					rawurlencode(\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv("REQUEST_URI")) . '&edit[' .
+					$record['tablename'] . '][' . $record['uid'] . ']=edit' . '" style="font-weight:bold">edit</a>';
 
 				$outputString .= $content;
 			}
 
 		} else {
-			$validProducts = array();
-				// show invalid widgets
-			if ($this->MOD_SETTINGS['function'] == 4) {
 
-					// get all widget records
-				$asinRecords = $databaseHandle->exec_SELECTgetRows('uid,pi_flexform',
+			// show invalid widgets
+			if($this->MOD_SETTINGS['function'] == 4) {
+
+				//get all widget records
+				$asinRecords = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid,pi_flexform',
 					'tt_content',
-					'pi_flexform LIKE "%asinlist%"' . t3lib_befunc::deleteClause('tt_content')
+					'pi_flexform LIKE "%asinlist%"' . \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause('tt_content')
 				);
 
 				$invalidWidgets = array();
 
-				foreach ($asinRecords as $asinRecord) {
-					$mode = $this->amazonEcs->piObj->pi_getFFvalue(t3lib_div::xml2array($asinRecord['pi_flexform']), 'mode');
-					if ($mode == 'ASINList') {
-						$widgetIsValid = TRUE;
-						$asinArray = t3lib_div::trimExplode(
-							LF,
-							$this->amazonEcs->piObj->pi_getFFvalue(t3lib_div::xml2array($asinRecord['pi_flexform']), 'asinlist'),
-							TRUE
-						);
+				foreach($asinRecords as $asinRecord) {
+					$mode = $this->amazonEcs->piObj->pi_getFFvalue(\TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($asinRecord['pi_flexform']), 'mode');
+					if($mode == 'ASINList') {
+						$widgetIsValid = true;
+						$asinArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(LF, $this->amazonEcs->piObj->pi_getFFvalue(\TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($asinRecord['pi_flexform']), 'asinlist'), true);
 
-						foreach ($asinArray as $asin) {
-							$product = t3lib_div::makeInstance('tx_amazonaffiliate_product', $asin, TRUE);
-							if ($product->getStatus() == TRUE) {
+						foreach($asinArray as $asin) {
+							$product = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_amazonaffiliate_product', $asin, true);
+							if($product->getStatus() == true) {
 								$validProducts[] = $asin;
 							} else {
-								$widgetIsValid = FALSE;
+								$widgetIsValid = false;
 								break;
 							}
 						}
 
-						if (count($validProducts) < $this->amazonEcs->getMinimumAsinlistCount()) {
-							$widgetIsValid = FALSE;
+						if(count($validProducts) < $this->amazonEcs->getMinimumAsinlistCount()) {
+							$widgetIsValid = false;
 						}
 
-						if (!$widgetIsValid) {
+						if(!$widgetIsValid) {
 							$invalidWidgets[] = $asinRecord['uid'];
 						}
 					}
 				}
 
-				$outputString = '<h3>' . $language->getLL('invalidWidgets') . '</h3>';
-				if (count($invalidWidgets) > 0) {
-					foreach ($invalidWidgets as $recordUid) {
-						$content = '<br />' . $language->sL($GLOBALS['TCA']['tt_content']['ctrl']['title']) . ': UID ' . $recordUid;
+				$outputString = '<h3>' . $GLOBALS['LANG']->getLL('invalidWidgets') . '</h3>';
+				if(count($invalidWidgets) > 0) {
 
+					foreach($invalidWidgets as $recordUid) {
+
+						$content = "<br />" . $GLOBALS['LANG']->sL($GLOBALS['TCA']['tt_content']['ctrl']['title']) . ": UID " . $recordUid;
+						//	$record
 						$content .= ' <a href="' . $GLOBALS['BACK_PATH'] . 'alt_doc.php?returnUrl=' .
-							rawurlencode(t3lib_div::getIndpEnv('REQUEST_URI')) . '&edit[tt_content][' . $recordUid . ']=edit' .
+							rawurlencode(\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv("REQUEST_URI")) . '&edit[tt_content][' . $recordUid . ']=edit' .
 							'" style="font-weight:bold">edit</a>';
 
 						$outputString .= $content;
 					}
 				} else {
-						// 'Es wurden keine ungültigen Widgets gefunden.';
-					$outputString = $language->getLL('noInvalidWidgetsFound');
+					$outputString = $GLOBALS['LANG']->getLL('noInvalidWidgetsFound');//'Es wurden keine ungültigen Widgets gefunden.';
 				}
 			} else {
 
-				switch ($this->MOD_SETTINGS['function']) {
+				switch($this->MOD_SETTINGS['function']) {
 					case 1:
-						$where = 'status = 0';
+						$where = "status = 0";
 						break;
 					case 2:
-						$where = 'status = 1';
+						$where = "status = 1";
 						break;
 					default:
-						$where = '';
+						$where = "";
 						break;
 				}
 
-				$asinRecords = $databaseHandle->exec_SELECTgetRows('asin',
+
+				$asinRecords = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('asin',
 					'tx_amazonaffiliate_products',
 					$where
 				);
 
+
 				$tRows = array();
 				$tRows[] = '
 					<tr>
-						<td class="c-headLine" width="30"><strong>' . $language->getLL('uid') . '</strong></td>
-						<td class="c-headLine" width="80"><strong>' . $language->getLL('asin') . '</strong></td>
-						<td class="c-headLine"><strong>' . $language->getLL('name') . '</strong></td>
+						<td class="c-headLine" width="30"><strong>' . $GLOBALS['LANG']->getLL('uid') . '</strong></td>
+						<td class="c-headLine" width="80"><strong>' . $GLOBALS['LANG']->getLL('asin') . '</strong></td>
+						<td class="c-headLine"><strong>' . $GLOBALS['LANG']->getLL('name') . '</strong></td>
 						<td class="c-headLine">Details</td>
 					</tr>';
 
-				foreach ($asinRecords as $asinRecord) {
+				foreach($asinRecords as $asinRecord) {
+
 					/**
 					 * @var $product tx_amazonaffiliate_product
 					 */
-					$product = t3lib_div::makeInstance('tx_amazonaffiliate_product', $asinRecord['asin'], TRUE);
+					$product = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_amazonaffiliate_product', $asinRecord['asin'], true);
 
 					$linkparams = array('showAsin' => $product->getAsin());
 
@@ -298,34 +298,33 @@ class  tx_amazonaffiliate_module1 extends t3lib_SCbase {
 							<td>' . htmlspecialchars($product->getUid()) . '</td>
 							<td>' . htmlspecialchars($product->getAsin()) . '</td>
 							<td>' . htmlspecialchars($product->getName()) . '</td>
-							<td><a href="' . t3lib_div::linkThisScript($linkparams) . '">Details</a></td>
+							<td><a href="' . \TYPO3\CMS\Core\Utility\GeneralUtility::linkThisScript($linkparams) . '">Details</a></td>
 						</tr>';
 				}
-					// Create overview
+				// Create overview
 				$outputString = '<table border="0" cellpadding="3" cellspacing="2" id="typo3-page-stdlist" width="100%">' . implode('', $tRows) . '</table>';
 			}
 		}
 
-			// Add output:
+		// Add output:
 		$this->content .= $outputString;
 	}
+
 }
 
-if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/amazon_affiliate/mod1/index.php']) {
+
+if(defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/amazon_affiliate/mod1/index.php']) {
 	/** @noinspection PhpIncludeInspection */
 	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/amazon_affiliate/mod1/index.php']);
 }
 
-	// Make instance:
-/** @var tx_amazonaffiliate_module1 $SOBE */
-$SOBE = t3lib_div::makeInstance('tx_amazonaffiliate_module1');
+
+// Make instance:
+$SOBE = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_amazonaffiliate_module1');
 $SOBE->init();
 
-	// Include files?
-foreach ($SOBE->include_once as $INC_FILE) {
-	/** @noinspection PhpIncludeInspection */
-	include_once($INC_FILE);
-}
+// Include files?
+foreach($SOBE->include_once as $INC_FILE) include_once($INC_FILE);
 
 $SOBE->main();
 $SOBE->printContent();

@@ -23,78 +23,78 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class tx_amazonaffiliate_dmhooks extends tslib_pibase {
+class tx_amazonaffiliate_dmhooks extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 	/**
-	* This hook is processed BEFORE a datamap is processed (save, update etc.)
-	* We use this to check if a the amazon ASIN's are valid
-	*
-	* @param array $incomingFieldArray: the array of fields that where changed in BE (passed by reference)
-	* @param string $table: the table the data will be stored in
-	* @param integer $id: The uid of the dataset we're working on
-	* @param object $pObj: The instance of the BE Form
-	* @return void
-	*
-	* @author Sascha Egerer <info@sascha-egerer.de>
-	*/
-	public function processDatamap_preProcessFieldArray(&$incomingFieldArray, $table, $id, &$pObj) {
+	 * This hook is processed BEFORE a datamap is processed (save, update etc.)
+	 * We use this to check if a the amazon ASIN's are valid
+	 *
+	 * @param	array		$incomingFieldArray: the array of fields that where changed in BE (passed by reference)
+	 * @param	string		$table: the table the data will be stored in
+	 * @param	integer		$id: The uid of the dataset we're working on
+	 * @param	object		$pObj: The instance of the BE Form
+	 * @return	void
+	 *
+	 * @author Sascha Egerer <info@sascha-egerer.de>
+	 */
+	function processDatamap_preProcessFieldArray(&$incomingFieldArray, $table, $id, &$pObj) {
+
 		$checkedAsins = array();
 
-		/** @var language $language */
-		$language = $GLOBALS['LANG'];
+		foreach($incomingFieldArray as $fieldName => $field) {
 
-		foreach ($incomingFieldArray as $fieldName => $field) {
-
-			if ($fieldName == 'pi_flexform') {
+			if($fieldName == 'pi_flexform') {
 				$asinlist = $this->pi_getFFValue($incomingFieldArray['pi_flexform'], 'asinlist');
-				$asinArray = t3lib_div::trimExplode(LF, $asinlist, TRUE);
+				$asinArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(LF, $asinlist, true);
 
-					// check if the minimum amount of products for the ASINList is given
-				if ($this->pi_getFFValue($incomingFieldArray['pi_flexform'], 'mode') == 'ASINList') {
-					$amazonEcs = t3lib_div::makeInstance('tx_amazonaffiliate_amazonecs');
+				// check if the minimum amount of products for the ASINList is given
+				if($this->pi_getFFValue($incomingFieldArray['pi_flexform'], 'mode') == "ASINList") {
+					$amazonEcs = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_amazonaffiliate_amazonecs');
 
-					if (count($asinArray) < $amazonEcs->getMinimumAsinlistCount()) {
-						$pObj->log($table, $id, 5, 0, 1, 'You have to enter at least  %s products to the ASINList', 1, array($amazonEcs->getMinimumAsinlistCount()));
+					if(count($asinArray) < $amazonEcs->getMinimumAsinlistCount()) {
 
-							// do not close the document even if the 'Save & Close' action is called
-							// @TODO is there another way to not close the document?
+						$pObj->log($table, $id, 5, 0, 1, "You have to enter at least  %s products to the ASINList", 1, array($amazonEcs->getMinimumAsinlistCount()));
+
+						// do not close the document even if the "Save & Close" action is called
+						// @TODO is there another way to not close the document?
 						unset($_POST['_saveandclosedok_x']);
 						$incomingFieldArray = array();
+
 					}
 				}
-			} elseif ($table == 'tt_content' && $fieldName == 'tx_amazonaffiliate_amazon_asin') {
-				$tempAsinArray = t3lib_div::trimExplode(LF, $field, TRUE);
-					// remove typolink stuff
+			} elseif($table == "tt_content" && $fieldName == "tx_amazonaffiliate_amazon_asin") {
+				$tempAsinArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(LF, $field, true);
+				// remove typolink stuff
 				$asinArray = array();
-				foreach ($tempAsinArray as $asin) {
-						// get only the first 10 characters of the string which should be the ASIN
-					$asinArray[] = substr($asin, 0, 10);
+				foreach($tempAsinArray as $asin) {
+					// get only the first 10 characters of the string which should be the ASIN
+					$asinArray[] = substr($asin,0,10);
 				}
 			} else {
 				preg_match_all('/amazonaffiliate\:([a-z0-9]{10})/i', $field, $matches);
 				$asinArray = $matches[1];
 			}
 
-			if (is_array($asinArray) && count($asinArray) > 0) {
-				foreach ($asinArray as $asin) {
-					if (!in_array($asin, $checkedAsins)) {
+			if(is_array($asinArray) && count($asinArray) > 0) {
+				foreach($asinArray as $asin) {
+					if(!in_array($asin, $checkedAsins)) {
 						$checkedAsins[] = $asin;
 
-							// create a product instance wich checks if the product is valid
-						$amazonProduct = t3lib_div::makeInstance('tx_amazonaffiliate_product', $asin);
+						// create a product instance wich checks if the product is valid
+						$amazonProduct = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_amazonaffiliate_product', $asin);
 
-							// if the status is false, the product is invalid wich means the Syntax of the entered
-							// ASIN'n is not valid or it is not a valid Amazon product
-						if ($amazonProduct->getStatus() == FALSE) {
+						// if the status is false, the product is invalid wich means the Syntax of the entered
+						// ASIN'n is not valid or it is not a valid Amazon product
+						if($amazonProduct->getStatus() == false) {
 
-							$fieldLabel = $language->sL($GLOBALS['TCA'][$table]['columns'][$fieldName]['label']);
-							if ($fieldLabel) {
-								$fieldLabel = ' (Field \'' . rtrim($fieldLabel, ':') . '\')';
+							$fieldLabel = $GLOBALS['LANG']->sL($GLOBALS['TCA'][$table]['columns'][$fieldName]['label']);
+							if($fieldLabel) {
+								$fieldLabel = " (Field '" . rtrim($fieldLabel, ':') . "')";
 							}
-							$pObj->log($table, $id, 5, 0, 1, 'The ASIN \'' . $asin . '\'' . $fieldLabel . ' is invalid. ' . $amazonProduct->getStatusMessage(), 1, array($asin));
+							$pObj->log($table, $id, 5, 0, 1, "The ASIN \"" . $asin . "\"" . $fieldLabel . " is invalid. " . $amazonProduct->getStatusMessage(), 1, array($asin));
 
-								// do not close the document even if the 'Save & Close' action is called
-								// @TODO is there another way to not close the document?
+							// do not close the document even if the "Save & Close" action is called
+							// @TODO is there another way to not close the document?
 							unset($_POST['_saveandclosedok_x']);
 							$incomingFieldArray = array();
 						}
@@ -106,9 +106,7 @@ class tx_amazonaffiliate_dmhooks extends tslib_pibase {
 }
 
 
-if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/amazon_affiliate/hooks/class.tx_amazonaffiliate_dmhooks.php']) {
+if(defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/amazon_affiliate/hooks/class.tx_amazonaffiliate_dmhooks.php']) {
 	/** @noinspection PhpIncludeInspection */
 	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/amazon_affiliate/hooks/class.tx_amazonaffiliate_dmhooks.php']);
 }
-
-?>

@@ -14,8 +14,6 @@
 		<languageKey index="de" type="array">
 			<label index="piproducts_title">Amazon Produkte</label>
 			<label index="piproducts_plus_wiz_description">Amazon Produkte</label>
-			<label index="CheckAsin.name">Überprüfe Deine ASIN-Nummern</label>
-			<label index="CheckAsin.description">Überprüft, ob Deine ASIN-Nummer noch alle gültig sind</label>
 		</languageKey>
 	</data>
 </T3locallang>

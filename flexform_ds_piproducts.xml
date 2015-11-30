@@ -25,6 +25,14 @@
 										<numIndex index="0">Books</numIndex>
 										<numIndex index="1">books</numIndex>
 									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">Widgets</numIndex>
+										<numIndex index="1">--div--</numIndex>
+									</numIndex>
+									<numIndex index="4" type="array">
+										<numIndex index="0">ASINList</numIndex>
+										<numIndex index="1">ASINList</numIndex>
+									</numIndex>
 									<numIndex index="5" type="array">
 										<numIndex index="0">SearchAndAdd</numIndex>
 										<numIndex index="1">SearchAndAdd</numIndex>
@@ -33,6 +41,18 @@
 										<numIndex index="0">Bestsellers</numIndex>
 										<numIndex index="1">Bestsellers</numIndex>
 									</numIndex>
+									<!--<numIndex index="7" type="array">
+										<numIndex index="0">NewReleases</numIndex>
+										<numIndex index="1">NewReleases</numIndex>
+									</numIndex>
+									<numIndex index="8" type="array">
+										<numIndex index="0">MostWishedFor</numIndex>
+										<numIndex index="1">MostWishedFor</numIndex>
+									</numIndex>
+									<numIndex index="9" type="array">
+										<numIndex index="0">MostGifted</numIndex>
+										<numIndex index="1">MostGifted</numIndex>
+									</numIndex>-->
 								</items>
 								<maxitems>1</maxitems>
 								<size>1</size>
@@ -61,7 +81,7 @@
 								<items>
 									<numIndex index="0" type="array">
 										<numIndex index="0">ALL</numIndex>
-										<numIndex index="1"/>
+										<numIndex index="1"></numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
 										<numIndex index="0">Apparel</numIndex>
@@ -209,7 +229,7 @@
 								<items>
 									<numIndex index="0" type="array">
 										<numIndex index="0">---</numIndex>
-										<numIndex index="1"/>
+										<numIndex index="1"></numIndex>
 									</numIndex>
 								</items>
 								<maxitems>1</maxitems>
@@ -236,7 +256,7 @@
 								<items>
 									<numIndex index="0" type="array">
 										<numIndex index="0">ALL</numIndex>
-										<numIndex index="1"/>
+										<numIndex index="1"></numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
 										<numIndex index="0">Apparel</numIndex>

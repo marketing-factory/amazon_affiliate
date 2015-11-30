@@ -29,7 +29,7 @@ class tx_amazonaffiliate_product {
 	/**
 	 * Id of the database entry
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	protected $uid;
 
@@ -55,7 +55,7 @@ class tx_amazonaffiliate_product {
 	 *
 	 * @var bool
 	 */
-	protected $status = FALSE;
+	protected $status = false;
 
 	/**
 	 * The status message if the status
@@ -91,7 +91,7 @@ class tx_amazonaffiliate_product {
 	 *
 	 * @var bool
 	 */
-	protected $useCachedData = FALSE;
+	protected $useCachedData = false;
 
 	/**
 	 * indicates if something of the
@@ -99,10 +99,10 @@ class tx_amazonaffiliate_product {
 	 *
 	 * @var bool
 	 */
-	protected $_dirty = FALSE;
+	protected $_dirty = false;
 
-	/** @var  t3lib_DB */
-	protected $databaseHandler;
+	/** @var  \TYPO3\CMS\Core\Database\DatabaseConnection $database */
+	protected $database;
 
 	/**
 	 * The Constructor of the tx_amazonaffiliate_product Class
@@ -110,22 +110,23 @@ class tx_amazonaffiliate_product {
 	 * @param string $asin The Amazon ASIN
 	 * @param boolean $useCachedData set true if the local cached data should be used
 	 */
-	public function __construct($asin = '', $useCachedData = FALSE) {
+	public function __construct($asin = '', $useCachedData = false) {
 		$asin = trim($asin);
-		$this->databaseHandler = $GLOBALS['TYPO3_DB'];
+
+		$this->database = $GLOBALS['TYPO3_DB'];
 
 		if ($asin) {
 			/**
 			 * create an instance of the tx_amazonaffiliate_amazonecs class
 			 */
-			$this->amazonEcs = t3lib_div::makeInstance('tx_amazonaffiliate_amazonecs');
+			$this->amazonEcs = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_amazonaffiliate_amazonecs');
 
 			$this->setUseCachedData($useCachedData);
 
 			/**
 			 * check if the Syntax of the given ASIN is valid
 			 */
-			if (!tx_amazonaffiliate_amazonecs::validateAsinSyntax($asin)) {
+			if(!tx_amazonaffiliate_amazonecs::validateAsinSyntax($asin)) {
 
 				/**
 				 * set a statusMessage because the product is not valid
@@ -153,12 +154,12 @@ class tx_amazonaffiliate_product {
 		$this->amazonProduct = $product;
 
 		$product = array(
-			'asin' => $this->getItemAttribute('ASIN'),
-			'name' => $this->getItemAttribute('ItemAttributes.Title'),
-			'status' => TRUE,
+			'asin' => $this->getItemAttribute("ASIN"),
+			'name' => $this->getItemAttribute("ItemAttributes.Title"),
+			'status' => true,
 		);
 
-		foreach ($this->fieldlist as $field) {
+		foreach($this->fieldlist as $field) {
 			$this->$field = $product[$field];
 		}
 
@@ -169,80 +170,87 @@ class tx_amazonaffiliate_product {
 	 * write data to database if some has been changed
 	 */
 	public function __destruct() {
-			// write data to database
-		if ($this->_dirty && $this->getUid()) {
-			$data = array(
+
+		//write data to database
+		if($this->_dirty && $this->getUid()) {
+			$data = array (
+				'pid' => 1,
 				'asin' => $this->getAsin(),
 				'name' => $this->getName(),
 				'status' => $this->getStatus(),
 			);
-			$this->databaseHandler->exec_UPDATEquery('tx_amazonaffiliate_products', 'uid = \'' . intval($this->getUid()) . '\'', $data);
+			$this->database->exec_UPDATEquery('tx_amazonaffiliate_products', "uid = '" . intval($this->getUid()) . "'", $data);
 		}
+
 	}
 
 	/**
 	 * check if the product is a valid amazon product
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	private function loadData() {
-			// check if product for given ASIN already exists in our local database
-		$product = $this->databaseHandler->exec_SELECTgetRows('*',
+
+		//check if product for given ASIN already exists in our local database
+		$product = $this->database->exec_SELECTgetRows('*',
 			'tx_amazonaffiliate_products',
-			'asin = ' . $this->databaseHandler->fullQuoteStr($this->getAsin(), 'tx_amazonaffiliate_products'),
+			'asin = ' . $this->database->fullQuoteStr($this->getAsin(), 'tx_amazonaffiliate_products'),
 			'',
 			'',
 			1
 		);
 
-		if (count($product) == 1) {
+		if(count($product) == 1) {
 			$product = $product[0];
 		} else {
-			$product = FALSE;
+			$product = false;
 		}
-
-		if ($this->getUseCachedData() && is_array($product)) {
-			$this->setStatusMessage('You have requested a cached product which was not found in the local database.');
+		if($this->getUseCachedData() && is_array($product)) {
+			$this->setStatusMessage("You have requested a cached product which was not found in the local database.");
 		} else {
 			$this->loadAmazonProduct();
 
-			if ($this->getAmazonProduct() == FALSE || is_array($this->getItemAttribute('Items.Request.Errors'))) {
-				$this->setStatusMessage($this->getItemAttribute('Items.Request.Errors.Error.Message'));
-				if (!is_array($product)) {
-					$product = array();
-				}
-				$product['status'] = FALSE;
-				$this->_dirty = TRUE;
+			if ($this->getAmazonProduct() == false || is_array($this->getItemAttribute("Items.Request.Errors"))) {
 
-			} elseif ($this->getAmazonProduct()) {
-				if (!is_array($product)) {
+				$this->setStatusMessage($this->getItemAttribute("Items.Request.Errors.Error.Message"));
+				if(!is_array($product)) $product = array();
+				$product['status'] = false;
+				$this->_dirty = true;
+
+			} elseif($this->getAmazonProduct()) {
+				if(!is_array($product)) {
 					$product = array(
-						'asin' => $this->getItemAttribute('ASIN'),
-						'name' => $this->getItemAttribute('ItemAttributes.Title'),
-						'status' => TRUE,
+						'pid' => 1,
+						'asin' => $this->getItemAttribute("ASIN"),
+						'name' => $this->getItemAttribute("ItemAttributes.Title"),
+						'status' => true,
 					);
-					$this->databaseHandler->exec_INSERTquery('tx_amazonaffiliate_products', $product);
+					$this->database->exec_INSERTquery('tx_amazonaffiliate_products', $product);
 				} else {
-					$product['status'] = TRUE;
-					$this->_dirty = TRUE;
+					$product['status'] = true;
+					$this->_dirty = true;
 				}
 			}
 		}
 
 		if (is_array($product)) {
-			foreach ($this->fieldlist as $field) {
+			foreach($this->fieldlist as $field) {
 				$this->$field = $product[$field];
 			}
 		}
+
+
 	}
 
 	/**
 	 * load the product data from amazon
 	 */
 	public function loadAmazonProduct() {
-		if ($this->getAmazonProduct() === NULL) {
+
+		if($this->getAmazonProduct() === NULL) {
 			$this->setAmazonProduct($this->amazonEcs->lookup($this->getAsin()));
 		}
+
 	}
 
 	/**
@@ -256,14 +264,14 @@ class tx_amazonaffiliate_product {
 
 		$amazonProductValue = $this->getAmazonProduct();
 
-		$attributePathArray = explode('.', $attribute);
-		$found = FALSE;
-			// check if the first node is found
-			// if not we go to add 'ItemAttributes' and try it there
-		foreach ($attributePathArray as $attributePathNode) {
-			if (array_key_exists($attributePathNode, $amazonProductValue)) {
+		$attributePathArray = explode(".",$attribute);
+		$found = false;
+		// check if the first node is found
+		// if not we go to add "ItemAttributes" and try it there
+		foreach($attributePathArray as $attributePathNode) {
+			if (isset($amazonProductValue) && !is_null($amazonProductValue) && array_key_exists($attributePathNode, $amazonProductValue)) {
 				$amazonProductValue = $amazonProductValue[$attributePathNode];
-				$found = TRUE;
+				$found = true;
 			} else {
 				break;
 			}
@@ -272,12 +280,12 @@ class tx_amazonaffiliate_product {
 		/**
 		 * if value was not found clear the value
 		 */
-		if (is_array($amazonProductValue) || !$found) {
+		if(is_array($amazonProductValue) || !$found) {
 			$amazonProductValue = '';
 		}
 
-		if ($charset != 'utf-8') {
-			$amazonProductValue = iconv('utf-8', $charset, $amazonProductValue);
+		if($charset != "utf-8") {
+			$amazonProductValue = iconv("utf-8", $charset, $amazonProductValue);
 		}
 
 		return $amazonProductValue;
@@ -291,7 +299,7 @@ class tx_amazonaffiliate_product {
 	}
 
 	/**
-	 * @return object|tx_amazonaffiliate_amazonecs
+	 * @return Array|object|tx_amazonaffiliate_amazonecs
 	 */
 	public function getAmazonEcs() {
 		return $this->amazonEcs;
@@ -301,7 +309,7 @@ class tx_amazonaffiliate_product {
 	 * @param $asin
 	 */
 	public function setAsin($asin) {
-		$this->_dirty = TRUE;
+		$this->_dirty = true;
 		$this->asin = trim($asin);
 	}
 
@@ -330,7 +338,7 @@ class tx_amazonaffiliate_product {
 	 * @param $name
 	 */
 	public function setName($name) {
-		$this->_dirty = TRUE;
+		$this->_dirty = true;
 		$this->name = $name;
 	}
 
@@ -345,7 +353,7 @@ class tx_amazonaffiliate_product {
 	 * @param $status
 	 */
 	public function setStatus($status) {
-		$this->_dirty = TRUE;
+		$this->_dirty = true;
 		$this->status = $status;
 	}
 
@@ -388,28 +396,26 @@ class tx_amazonaffiliate_product {
 	 * @param $amazonProduct
 	 */
 	public function setAmazonProduct($amazonProduct) {
-		if ($amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] == '') {
-			if (!isset($amazonProduct['Offers']['Offer']['OfferListing']['SalePrice']['FormattedPrice'])) {
+		if (!is_null($amazonProduct)) {
+			if ($amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] == '') {
 				$amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] = $amazonProduct['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
-			} else {
-				$amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] = $amazonProduct['Offers']['Offer']['OfferListing']['SalePrice']['FormattedPrice'];
 			}
+			if ($amazonProduct['MediumImage']['URL'] == '') {
+				$amazonProduct['MediumImage']['URL']  = $amazonProduct['ImageSets']['ImageSet']['MediumImage']['URL'];
+			}
+			$this->amazonProduct = $amazonProduct;
 		}
-		if ($amazonProduct['MediumImage']['URL'] == '') {
-			$amazonProduct['MediumImage']['URL']  = $amazonProduct['ImageSets']['ImageSet']['MediumImage']['URL'];
-		}
-		$this->amazonProduct = $amazonProduct;
 	}
 
 	/**
-	 * @return mixed
+	 * @return bool|null|Object
 	 */
 	public function getAmazonProduct() {
 		return $this->amazonProduct;
 	}
 
 	/**
-	 * @param bool $useCachedData
+	 * @param $useCachedData
 	 */
 	public function setUseCachedData($useCachedData) {
 		$this->useCachedData = $useCachedData;
@@ -425,9 +431,7 @@ class tx_amazonaffiliate_product {
 
 }
 
-if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/amazon_affiliate/lib/class.tx_amazonaffiliate_product.php']) {
+if(defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/amazon_affiliate/lib/class.tx_amazonaffiliate_product.php']) {
 	/** @noinspection PhpIncludeInspection */
 	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/amazon_affiliate/lib/class.tx_amazonaffiliate_product.php']);
 }
-
-?>

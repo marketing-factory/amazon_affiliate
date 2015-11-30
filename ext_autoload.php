@@ -1,5 +1,5 @@
 <?php
-$extensionPath = t3lib_extMgm::extPath('amazon_affiliate');
+$extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('amazon_affiliate');
 
 
 return array(
@@ -10,7 +10,6 @@ return array(
 	'tx_amazonaffiliate_product' => $extensionPath . 'lib/class.tx_amazonaffiliate_product.php',
 	'tx_amazonaffiliate_updatestatus' => $extensionPath . 'scheduler/class.tx_amazonaffiliate_updatestatus.php',
 	'tx_amazonaffiliate_renderhooks' => $extensionPath . 'hooks/class.tx_amazonaffiliate_renderhooks.php',
-	'amazonecs' => $extensionPath . 'res/AmazonEcs.php',
 );
 
 ?>

@@ -10,7 +10,7 @@ CREATE TABLE tx_amazonaffiliate_products (
 	name tinytext,
 	status tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	asin tinytext,
-	
+
 	PRIMARY KEY (uid),
 	KEY parent (pid),
 	KEY asin (asin(10))
@@ -23,4 +23,5 @@ CREATE TABLE tx_amazonaffiliate_products (
 #
 CREATE TABLE tt_content (
 	tx_amazonaffiliate_amazon_asin text
+	tx_amazonaffiliate_image_caption text
 );

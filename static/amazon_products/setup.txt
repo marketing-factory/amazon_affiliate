@@ -80,47 +80,56 @@ plugin.tx_amazonaffiliate_piproducts {
 	#######################
 	productListing.books.fields {
 		# title ist ein frei waehlbarer Wert. Dieser Wert wird dann fuer den Marker verwendet. Der Marker im Template laesst sich dann mit "###PRODUCT_TITLE###" abfragen
-		# wenn es sich um ein Amazon Feld handelt, muss dem Feld der Wert "AMAZON_ATTR" zugewiesen werden.
-		# welches feld verwendet wird, kann mit der Feldoption "attrName" festgelegt werden.
+    	# wenn es sich um ein Amazon Feld handelt, muss dem Feld der Wert "AMAZON_ATTR" zugewiesen werden.
+    	# welches feld verwendet wird, kann mit der Feldoption "attrName" festgelegt werden.
 
-		title = AMAZON_ATTR
-		title.attrName = ItemAttributes.Title
-		title.wrap = <b>|</b>
-		title.typolink.parameter.data = register:lastProductLink
+    	title = AMAZON_ATTR
+    	title.attrName = ItemAttributes.Title
+    	title.wrap = <b>|</b>
+    	title.typolink.parameter.data = register:lastProductLink
 
-		author = AMAZON_ATTR
-		author.attrName = ItemAttributes.Author
-		author.stdWrap.noTrimWrap = |<b>Autor:</b> |<br/>|
-		author.stdWrap.required = 1
+    	author = AMAZON_ATTR
+    	author.attrName = ItemAttributes.Author
+    	author.stdWrap.noTrimWrap = |<b>Autor:</b> |<br/>|
+    	author.stdWrap.required = 1
 
-		mediumimage = AMAZON_ATTR
-		mediumimage.attrName = MediumImage.URL
-		mediumimage.innerWrap = <img src="|" />
-		mediumimage.typolink.parameter.data = register:lastProductLink
+    	mediumimage = AMAZON_ATTR
+    	mediumimage.attrName = MediumImage.URL
+    	mediumimage.innerWrap = <img src="|" />
+    	mediumimage.typolink.parameter.data = register:lastProductLink
 
-		content = AMAZON_ATTR
-		content.attrName = EditorialReviews.EditorialReview.Content
-		content.stdWrap.stripHtml= 1
-		content.stdWrap.cropHTML = 150 | ... | 1
-		content.stdWrap.wrap = <b>Inhalt:</b><br/>
-		content.stdWrap.required= 1
+    	content = AMAZON_ATTR
+    	content.attrName = EditorialReviews.EditorialReview.Content
+    	content.stdWrap.stripHtml= 1
+    	content.stdWrap.cropHTML = 150 | ... | 1
+    	content.stdWrap.wrap = <b>Inhalt:</b><br/>
+    	content.stdWrap.required= 1
 
-		date = AMAZON_ATTR
-		date.attrName = ItemAttributes.PublicationDate
-		date.noTrimWrap = |<b>Erscheinungsdatum:</b> |<br/>|
+    	date = AMAZON_ATTR
+    	date.attrName = ItemAttributes.PublicationDate
+    	date.noTrimWrap = |<b>Erscheinungsdatum:</b> |<br/>|
 
-		price = AMAZON_ATTR
-		price.attrName = ItemAttributes.ListPrice.FormattedPrice
-		price.noTrimWrap = |<b>Preis:</b> |<br/>|
+    	price = AMAZON_ATTR
+    	price.attrName = ItemAttributes.ListPrice.FormattedPrice
+    	price.noTrimWrap = |<b>Preis:</b> |<br/>|
 
-		isbn = AMAZON_ATTR
-		isbn.attrName = ItemAttributes.ISBN
-		isbn.noTrimWrap = |<b>ISBN:</b> |<br/>|
+    	isbn = AMAZON_ATTR
+    	isbn.attrName = ItemAttributes.ISBN
+    	isbn.noTrimWrap = |<b>ISBN:</b> |<br/>|
 
-		buttonurl = AMAZON_ATTR
-		buttonurl.attrName = DetailPageURL
+    	buttonurl = AMAZON_ATTR
+    	buttonurl.attrName = DetailPageURL
 
 	}
+
+	########################
+	# Widget Configuration #
+	########################
+	widget {
+		# Valid combinations of width x height are: 120x500, 160x600, 400x150, 500x175, 600x200
+		width = 600
+		height = 200
+    }
 
 	########################
 	# Linkhandler Settings #
@@ -137,7 +146,7 @@ plugin.tx_amazonaffiliate_piproducts {
 		target = _blank
 	}
 
-	# Amazon JS files which will be included if needed
+	# Amazon JS files wich will be included if needed
 	amazonJS {
 		# the MouseOver JavaScript
 		hover = <script type="text/javascript" src="http://wms.assoc-amazon.de/20070822/DE/js/link-enhancer-common.js?tag=###ASSOCIATE_TAG###"></script><noscript><img src="http://wms.assoc-amazon.de/20070822/DE/img/noscript.gif?tag=###ASSOCIATE_TAG###" alt="" /></noscript>
