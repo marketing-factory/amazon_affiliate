@@ -45,7 +45,7 @@ class tx_amazonaffiliate_linkhandler {
 
 			if($product->getStatus()) {
 
-				$link_paramA = \TYPO3\CMS\Core\Utility\GeneralUtility::unQuoteFilenames($link_param, TRUE);
+				$link_paramA = \TYPO3\CMS\Core\Utility\GeneralUtility::unQuoteFilenames($link_param, false);
 
 				$amazonHover = ($value[1] == '1' ? true : false);
 
