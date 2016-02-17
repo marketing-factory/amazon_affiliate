@@ -56,7 +56,7 @@ class LinkHandlerHook
             $product = GeneralUtility::makeInstance(Product::class, $value[0]);
 
             if ($product->getStatus()) {
-                $link_paramA = GeneralUtility::unQuoteFilenames($link_param, true);
+                $link_paramA = GeneralUtility::unQuoteFilenames($link_param, false);
 
                 $amazonHover = ($value[1] == '1' ? true : false);
 
