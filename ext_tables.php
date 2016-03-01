@@ -26,6 +26,11 @@ if (TYPO3_MODE === 'BE' && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
                 $_EXTKEY,
                 'piproducts/class.tx_amazonaffiliate_piproducts_wizicon.php'
             );
+
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
+        'tt_content',
+        'EXT:amazon_affiliate/Resources/Private/Language/locallang_csh_ttcontent.xlf'
+    );
 }
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(

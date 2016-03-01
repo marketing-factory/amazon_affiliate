@@ -1,0 +1,24 @@
+<form action="" name="lhoverform" id="lhoverform" class="t3js-dummyform">
+    <table border="0" cellpadding="2" cellspacing="1" id="typo3-hover">
+        <tbody>
+        <tr>
+            <td style="width: 96px;">Hover</td>
+            <td><input name="lhover" type="checkbox" {f:if( condition:'{hover}', then:'checked="checked"', else:'' )}></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+
+<form action="" name="lasinform" id="lasinform" class="t3js-dummyform">
+    <table border="0" cellpadding="2" cellspacing="1" id="typo3-asin">
+        <tbody>
+        <tr>
+            <td style="width: 96px;">ASIN</td>
+            <td>
+                <input type="text" name="lasin" class="typo3-link-input" value="{asin}">
+                <input class="btn btn-default" type="submit" value="Set Link">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>

@@ -1,0 +1,6 @@
+TCEMAIN.linkHandler.amazon_affiliate {
+    handler = Mfc\AmazonAffiliate\LinkHandler\AmazonProductLinkHandler
+    label = Amazon Affiliate
+    displayAfter = mail
+    scanAfter = page
+}

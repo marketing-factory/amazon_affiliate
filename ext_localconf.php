@@ -25,12 +25,8 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tce']['formevals']['amazon_affiliate'
 
 
 // linkhandler hooks
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler']['amazon_affiliate']
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler']['amazonaffiliate']
     = \Mfc\AmazonAffiliate\Hook\LinkHandlerHook::class;
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['typo3/class.browse_links.php']['browseLinksHook']['amazon_affiliate']
-    = \Mfc\AmazonAffiliate\Hook\LinkBrowserHook::class;
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/rtehtmlarea/mod3/class.tx_rtehtmlarea_browse_links.php']['browseLinksHook']['amazon_affiliate']
-    = \Mfc\AmazonAffiliate\Hook\LinkBrowserHook::class;
 
 // register the task for the scheduler
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Mfc\AmazonAffiliate\Scheduler\Task\UpdateStatusTask::class] = [

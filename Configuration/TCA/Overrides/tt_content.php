@@ -13,22 +13,6 @@ call_user_func(function ($_EXTKEY) {
                 'type' => 'text',
                 'cols' => '30',
                 'rows' => '3',
-                'wizards' => [
-                    '_PADDING' => 2,
-                    'link' => [
-                        'type' => 'popup',
-                        'title' => 'LLL:EXT:cms/locallang_ttc.xml:image_link_formlabel',
-                        'icon' => 'link_popup.gif',
-                        'module' => [
-                            'name' => 'browse_links',
-                            'urlParameters' => [
-                                'mode' => 'wizard'
-                            ]
-                        ],
-                        'JSopenParams' => 'height=300,width=500,status=0,menubar=0,scrollbars=1',
-                    ],
-
-                ],
                 'softref' => 'typolink[linkList]',
             ],
         ],

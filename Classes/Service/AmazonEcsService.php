@@ -25,6 +25,7 @@
  ***************************************************************/
 namespace Mfc\AmazonAffiliate\Service;
 
+use Mfc\AmazonAffiliate\Domain\Model\Product;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -168,7 +169,9 @@ class AmazonEcsService extends \AmazonECS implements SingletonInterface
     {
         $result = '';
         $pObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-        $amazonEcs = GeneralUtility::makeInstance(\AmazonECS::class);
+
+        /** @var AmazonEcsService $amazonEcs */
+        $amazonEcs = GeneralUtility::makeInstance(__CLASS__);
         if ($target == '-' || $target == '') {
             $target = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_amazonaffiliate_piproducts.']['linkhandler.']['target'];
         }
@@ -191,8 +194,12 @@ class AmazonEcsService extends \AmazonECS implements SingletonInterface
 
                 $conf['wrap'] = $wrap;
 
-                $amazonEcs = GeneralUtility::makeInstance(\AmazonECS::class);
-                $amazonEcs->addHoverJavascript();
+                /*
+                 * Temporarily disabled as the currently loaded js file
+                 * is completely empty and there is no other quick
+                 * solution yet.
+                 */
+//                $amazonEcs->addHoverJavascript();
             } else {
                 $wrapTemplate = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_amazonaffiliate_piproducts.']['linkhandler.']['urlStdWrap'];
                 $wrap = $pObj->substituteMarkerArray($wrapTemplate, $markers, "###|###");
@@ -265,7 +272,7 @@ class AmazonEcsService extends \AmazonECS implements SingletonInterface
                 $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_amazonaffiliate_piproducts.']['productListing.']['imageCode']);
         } else {
 
-            $amazonProduct = GeneralUtility::makeInstance('tx_amazonaffiliate_product', $asin);
+            $amazonProduct = GeneralUtility::makeInstance(Product::class, $asin);
 
             $gifCreator = GeneralUtility::makeInstance(GifBuilder::class);
 
