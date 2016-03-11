@@ -1,0 +1,17 @@
+ # cat=basic; type=input; label=Amazon Secret Key
+secret_key =
+
+ # cat=basic; type=input; label=Amazon Access Key
+access_key =
+
+ # cat=basic; type=options[de,com,co.uk,ca,fr,co.jp,it,cn,es]; label=Amazon Location
+country = de
+
+ # cat=basic; type=input; label=Amazon associate_tag
+associate_tag =
+
+ # cat=basic; type=input; label=Minimum products for  "ASINList"
+minimumAsinlistCount = 5
+
+# cat=basic; type=input; label=maximum products for "Bestsellers,SearchAndAdd"
+displayLimit = 10

@@ -1,0 +1,407 @@
+<T3DataStructure>
+	<sheets>
+		<sDEF>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Basic Configuration</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<mode>
+						<TCEforms>
+							<label>Plugin Mode</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">Productlistings</numIndex>
+										<numIndex index="1">--div--</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">Products</numIndex>
+										<numIndex index="1">products</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">Books</numIndex>
+										<numIndex index="1">books</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">Widgets</numIndex>
+										<numIndex index="1">--div--</numIndex>
+									</numIndex>
+									<numIndex index="4" type="array">
+										<numIndex index="0">ASINList</numIndex>
+										<numIndex index="1">ASINList</numIndex>
+									</numIndex>
+									<numIndex index="5" type="array">
+										<numIndex index="0">SearchAndAdd</numIndex>
+										<numIndex index="1">SearchAndAdd</numIndex>
+									</numIndex>
+									<numIndex index="6" type="array">
+										<numIndex index="0">Bestsellers</numIndex>
+										<numIndex index="1">Bestsellers</numIndex>
+									</numIndex>
+									<!--<numIndex index="7" type="array">
+										<numIndex index="0">NewReleases</numIndex>
+										<numIndex index="1">NewReleases</numIndex>
+									</numIndex>
+									<numIndex index="8" type="array">
+										<numIndex index="0">MostWishedFor</numIndex>
+										<numIndex index="1">MostWishedFor</numIndex>
+									</numIndex>
+									<numIndex index="9" type="array">
+										<numIndex index="0">MostGifted</numIndex>
+										<numIndex index="1">MostGifted</numIndex>
+									</numIndex>-->
+								</items>
+								<maxitems>1</maxitems>
+								<size>1</size>
+								<default>products</default>
+							</config>
+							<onChange>reload</onChange>
+						</TCEforms>
+					</mode>
+					<asinlist>
+						<TCEforms>
+							<label>ASIN List</label>
+							<config>
+								<type>text</type>
+								<cols>15</cols>
+								<rows>5</rows>
+								<eval>trim,tx_amazonaffiliate_asineval</eval>
+							</config>
+							<displayCond>FIELD:mode:IN:products,books,ASINList,</displayCond>
+						</TCEforms>
+					</asinlist>
+					<browsenode>
+						<TCEforms>
+							<label>BrowseNode</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0" type="array">
+										<numIndex index="0">ALL</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">Apparel</numIndex>
+										<numIndex index="1">78689031</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">Automotive</numIndex>
+										<numIndex index="1">78194031</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">Baby</numIndex>
+										<numIndex index="1">357577011</numIndex>
+									</numIndex>
+									<!-- same id as HealthPersonalCare -->
+									<!-- numIndex index="4" type="array">
+										<numIndex index="0">Beauty</numIndex>
+										<numIndex index="1">64257031</numIndex>
+									</numIndex -->
+									<numIndex index="5" type="array">
+										<numIndex index="0">Books</numIndex>
+										<numIndex index="1">541686</numIndex>
+									</numIndex>
+									<!-- same id as Music -->
+									<!-- numIndex index="6" type="array">
+										<numIndex index="0">Classical</numIndex>
+										<numIndex index="1">542676</numIndex>
+									</numIndex -->
+									<numIndex index="7" type="array">
+										<numIndex index="0">DVD</numIndex>
+										<numIndex index="1">547664</numIndex>
+									</numIndex>
+									<numIndex index="8" type="array">
+										<numIndex index="0">Electronics</numIndex>
+										<numIndex index="1">569604</numIndex>
+									</numIndex>
+									<numIndex index="9" type="array">
+										<numIndex index="0">ForeignBooks</numIndex>
+										<numIndex index="1">54071011</numIndex>
+									</numIndex>
+									<numIndex index="10" type="array">
+										<numIndex index="0">Grocery</numIndex>
+										<numIndex index="1">57240051</numIndex>
+									</numIndex>
+									<numIndex index="11" type="array">
+										<numIndex index="0">HealthPersonalCare</numIndex>
+										<numIndex index="1">64257031</numIndex>
+									</numIndex>
+									<numIndex index="12" type="array">
+										<numIndex index="0">HomeGarden</numIndex>
+										<numIndex index="1">10925241</numIndex>
+									</numIndex>
+									<numIndex index="13" type="array">
+										<numIndex index="0">Jewelry</numIndex>
+										<numIndex index="1">327473011</numIndex>
+									</numIndex>
+									<numIndex index="14" type="array">
+										<numIndex index="0">Kitchen</numIndex>
+										<numIndex index="1">3169011</numIndex>
+									</numIndex>
+									<numIndex index="15" type="array">
+										<numIndex index="0">Lighting</numIndex>
+										<numIndex index="1">213083031</numIndex>
+									</numIndex>
+									<numIndex index="16" type="array">
+										<numIndex index="0">Magazines</numIndex>
+										<numIndex index="1">1198526</numIndex>
+									</numIndex>
+									<numIndex index="17" type="array">
+										<numIndex index="0">MP3Downloads</numIndex>
+										<numIndex index="1">77256031</numIndex>
+									</numIndex>
+									<numIndex index="18" type="array">
+										<numIndex index="0">Music</numIndex>
+										<numIndex index="1">542676</numIndex>
+									</numIndex>
+									<numIndex index="19" type="array">
+										<numIndex index="0">MusicalInstruments</numIndex>
+										<numIndex index="1">11965861</numIndex>
+									</numIndex>
+									<numIndex index="20" type="array">
+										<numIndex index="0">OfficeProducts</numIndex>
+										<numIndex index="1">16291311</numIndex>
+									</numIndex>
+									<numIndex index="21" type="array">
+										<numIndex index="0">OutdoorLiving</numIndex>
+										<numIndex index="1">10925051</numIndex>
+									</numIndex>
+									<!-- same id as Electronics
+									<numIndex index="22" type="array">
+										<numIndex index="0">PCHardware</numIndex>
+										<numIndex index="1">569604</numIndex>
+									</numIndex>
+									<numIndex index="23" type="array">
+										<numIndex index="0">Photo</numIndex>
+										<numIndex index="1">569604</numIndex>
+									</numIndex>-->
+									<numIndex index="24" type="array">
+										<numIndex index="0">Software</numIndex>
+										<numIndex index="1">542064</numIndex>
+									</numIndex>
+									<!-- same id as VideoGames -->
+									<!-- numIndex index="25" type="array">
+										<numIndex index="0">SoftwareVideoGames</numIndex>
+										<numIndex index="1">541708</numIndex>
+									</numIndex -->
+									<numIndex index="26" type="array">
+										<numIndex index="0">SportingGoods</numIndex>
+										<numIndex index="1">16435121</numIndex>
+									</numIndex>
+									<numIndex index="27" type="array">
+										<numIndex index="0">Toys</numIndex>
+										<numIndex index="1">12950661</numIndex>
+									</numIndex>
+									<numIndex index="28" type="array">
+										<numIndex index="0">VHS</numIndex>
+										<numIndex index="1">547082</numIndex>
+									</numIndex>
+									<!-- same id as DVD -->
+									<!-- numIndex index="29" type="array">
+										<numIndex index="0">Video</numIndex>
+										<numIndex index="1">547664</numIndex>
+									</numIndex -->
+									<numIndex index="30" type="array">
+										<numIndex index="0">VideoGames</numIndex>
+										<numIndex index="1">541708</numIndex>
+									</numIndex>
+									<numIndex index="31" type="array">
+										<numIndex index="0">Watches</numIndex>
+										<numIndex index="1">193708031</numIndex>
+									</numIndex>
+								</items>
+								<maxitems>1</maxitems>
+								<size>1</size>
+							</config>
+							<onChange>reload</onChange>
+							<displayCond>FIELD:mode:!IN:products,books,ASINList,</displayCond>
+						</TCEforms>
+					</browsenode>
+					<subbrowsenode>
+						<TCEforms>
+							<label>Sub BrowseNode</label>
+							<config>
+								<type>select</type>
+								<itemsProcFunc>tx_amazonaffiliate_amazonecs->getBrowseNodesSelectItems</itemsProcFunc>
+								<items>
+									<numIndex index="0" type="array">
+										<numIndex index="0">---</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+								</items>
+								<maxitems>1</maxitems>
+								<size>1</size>
+							</config>
+							<displayCond>FIELD:mode:!IN:products,books,ASINList,</displayCond>
+						</TCEforms>
+					</subbrowsenode>
+					<searchterm>
+						<TCEforms>
+							<label>Search Term</label>
+							<config>
+								<type>input</type>
+								<eval>trim</eval>
+							</config>
+							<displayCond>FIELD:mode:IN:SearchAndAdd</displayCond>
+						</TCEforms>
+					</searchterm>
+					<searchindex>
+						<TCEforms>
+							<label>Search Index</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0" type="array">
+										<numIndex index="0">ALL</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">Apparel</numIndex>
+										<numIndex index="1">Apparel</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">Automotive</numIndex>
+										<numIndex index="1">Automotive</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">Baby</numIndex>
+										<numIndex index="1">Baby</numIndex>
+									</numIndex>
+									<numIndex index="4" type="array">
+										<numIndex index="0">Beauty</numIndex>
+										<numIndex index="1">Beauty</numIndex>
+									</numIndex>
+									<numIndex index="5" type="array">
+										<numIndex index="0">Books</numIndex>
+										<numIndex index="1">Books</numIndex>
+									</numIndex>
+									<numIndex index="6" type="array">
+										<numIndex index="0">Classical</numIndex>
+										<numIndex index="1">Classical</numIndex>
+									</numIndex>
+									<numIndex index="7" type="array">
+										<numIndex index="0">DVD</numIndex>
+										<numIndex index="1">DVD</numIndex>
+									</numIndex>
+									<numIndex index="8" type="array">
+										<numIndex index="0">Electronics</numIndex>
+										<numIndex index="1">Electronics</numIndex>
+									</numIndex>
+									<numIndex index="9" type="array">
+										<numIndex index="0">ForeignBooks</numIndex>
+										<numIndex index="1">ForeignBooks</numIndex>
+									</numIndex>
+									<numIndex index="10" type="array">
+										<numIndex index="0">Grocery</numIndex>
+										<numIndex index="1">Grocery</numIndex>
+									</numIndex>
+									<numIndex index="11" type="array">
+										<numIndex index="0">HealthPersonalCare</numIndex>
+										<numIndex index="1">HealthPersonalCare</numIndex>
+									</numIndex>
+									<numIndex index="12" type="array">
+										<numIndex index="0">HomeGarden</numIndex>
+										<numIndex index="1">HomeGarden</numIndex>
+									</numIndex>
+									<numIndex index="13" type="array">
+										<numIndex index="0">Jewelry</numIndex>
+										<numIndex index="1">Jewelry</numIndex>
+									</numIndex>
+									<numIndex index="14" type="array">
+										<numIndex index="0">Kitchen</numIndex>
+										<numIndex index="1">Kitchen</numIndex>
+									</numIndex>
+									<numIndex index="15" type="array">
+										<numIndex index="0">Lighting</numIndex>
+										<numIndex index="1">Lighting</numIndex>
+									</numIndex>
+									<numIndex index="16" type="array">
+										<numIndex index="0">Magazines</numIndex>
+										<numIndex index="1">Magazines</numIndex>
+									</numIndex>
+									<numIndex index="17" type="array">
+										<numIndex index="0">MP3Downloads</numIndex>
+										<numIndex index="1">MP3Downloads</numIndex>
+									</numIndex>
+									<numIndex index="18" type="array">
+										<numIndex index="0">Music</numIndex>
+										<numIndex index="1">Music</numIndex>
+									</numIndex>
+									<numIndex index="19" type="array">
+										<numIndex index="0">MusicalInstruments</numIndex>
+										<numIndex index="1">MusicalInstruments</numIndex>
+									</numIndex>
+									<numIndex index="20" type="array">
+										<numIndex index="0">OfficeProducts</numIndex>
+										<numIndex index="1">OfficeProducts</numIndex>
+									</numIndex>
+									<numIndex index="21" type="array">
+										<numIndex index="0">OutdoorLiving</numIndex>
+										<numIndex index="1">OutdoorLiving</numIndex>
+									</numIndex>
+									<numIndex index="22" type="array">
+										<numIndex index="0">PCHardware</numIndex>
+										<numIndex index="1">PCHardware</numIndex>
+									</numIndex>
+									<numIndex index="23" type="array">
+										<numIndex index="0">Photo</numIndex>
+										<numIndex index="1">Photo</numIndex>
+									</numIndex>
+									<numIndex index="24" type="array">
+										<numIndex index="0">Software</numIndex>
+										<numIndex index="1">Software</numIndex>
+									</numIndex>
+									<numIndex index="25" type="array">
+										<numIndex index="0">SoftwareVideoGames</numIndex>
+										<numIndex index="1">SoftwareVideoGames</numIndex>
+									</numIndex>
+									<numIndex index="26" type="array">
+										<numIndex index="0">SportingGoods</numIndex>
+										<numIndex index="1">SportingGoods</numIndex>
+									</numIndex>
+									<numIndex index="27" type="array">
+										<numIndex index="0">Toys</numIndex>
+										<numIndex index="1">Toys</numIndex>
+									</numIndex>
+									<numIndex index="28" type="array">
+										<numIndex index="0">VHS</numIndex>
+										<numIndex index="1">VHS</numIndex>
+									</numIndex>
+									<numIndex index="29" type="array">
+										<numIndex index="0">Video</numIndex>
+										<numIndex index="1">Video</numIndex>
+									</numIndex>
+									<numIndex index="30" type="array">
+										<numIndex index="0">VideoGames</numIndex>
+										<numIndex index="1">VideoGames</numIndex>
+									</numIndex>
+									<numIndex index="31" type="array">
+										<numIndex index="0">Watches</numIndex>
+										<numIndex index="1">Watches</numIndex>
+									</numIndex>
+								</items>
+								<maxitems>1</maxitems>
+								<size>1</size>
+							</config>
+							<displayCond>FIELD:mode:!IN:products,books,ASINList,</displayCond>
+						</TCEforms>
+					</searchindex>
+					<limit>
+						<TCEforms>
+							<label>Display limit</label>
+							<config>
+								<type>input</type>
+								<eval>trim,int</eval>
+								<default>3</default>
+							</config>
+							<displayCond>FIELD:mode:!IN:products,books,ASINList,</displayCond>
+						</TCEforms>
+					</limit>
+				</el>
+			</ROOT>
+		</sDEF>
+	</sheets>
+</T3DataStructure>

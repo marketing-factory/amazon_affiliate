@@ -1,0 +1,891 @@
+####
+# Example Structure of a Amazon Product
+# You can access each element of the tree
+# by using the path (nodes seperated by a point) to the element.
+#
+#
+# Examples:
+# get the ASIN: ASIN
+# get the Wishlink Url: ItemLinks.ItemLink.0.URL
+# get the URL to the Medium Image: MediumImage.URL
+# get the Manufacturer: ItemAttributes.Manufacturer
+# get the title of the first similar product: SimilarProducts.SimilarProduct.0.Title
+#
+###
+
+[ASIN] => 357010124X
+[DetailPageURL] => http://www.amazon.de/Steve-Jobs-autorisierte-Biografie-Apple-Gr%C3%BCnders/dp/357010124X%3FSubscriptionId%3DAKIAJTEMA46KTUYNBXEA%26tag%3Dfanzentra-21%26linkCode%3Dsp1%26camp%3D2025%26creative%3D165953%26creativeASIN%3D357010124X
+[ItemLinks] => Array
+	(
+		[ItemLink] => Array
+			(
+				[0] => Array
+					(
+						[Description] => Add To Wishlist
+						[URL] => http://www.amazon.de/gp/registry/wishlist/add-item.html%3Fasin.0%3D357010124X%26SubscriptionId%3DAKIAJTEMA46KTUYNBXEA%26tag%3Dfanzentra-21%26linkCode%3Dsp1%26camp%3D2025%26creative%3D12738%26creativeASIN%3D357010124X
+					)
+
+				[1] => Array
+					(
+						[Description] => Tell A Friend
+						[URL] => http://www.amazon.de/gp/pdp/taf/357010124X%3FSubscriptionId%3DAKIAJTEMA46KTUYNBXEA%26tag%3Dfanzentra-21%26linkCode%3Dsp1%26camp%3D2025%26creative%3D12738%26creativeASIN%3D357010124X
+					)
+
+				[2] => Array
+					(
+						[Description] => All Customer Reviews
+						[URL] => http://www.amazon.de/review/product/357010124X%3FSubscriptionId%3DAKIAJTEMA46KTUYNBXEA%26tag%3Dfanzentra-21%26linkCode%3Dsp1%26camp%3D2025%26creative%3D12738%26creativeASIN%3D357010124X
+					)
+
+				[3] => Array
+					(
+						[Description] => All Offers
+						[URL] => http://www.amazon.de/gp/offer-listing/357010124X%3FSubscriptionId%3DAKIAJTEMA46KTUYNBXEA%26tag%3Dfanzentra-21%26linkCode%3Dsp1%26camp%3D2025%26creative%3D12738%26creativeASIN%3D357010124X
+					)
+
+			)
+
+	)
+
+[SalesRank] => 4
+[SmallImage] => Array
+	(
+		[URL] => http://ecx.images-amazon.com/images/I/41J2eItD9uL._SL75_.jpg
+		[Height] => Array
+			(
+				[_] => 75
+				[Units] => pixels
+			)
+
+		[Width] => Array
+			(
+				[_] => 49
+				[Units] => pixels
+			)
+
+	)
+
+[MediumImage] => Array
+	(
+		[URL] => http://ecx.images-amazon.com/images/I/41J2eItD9uL._SL160_.jpg
+		[Height] => Array
+			(
+				[_] => 160
+				[Units] => pixels
+			)
+
+		[Width] => Array
+			(
+				[_] => 105
+				[Units] => pixels
+			)
+
+	)
+
+[LargeImage] => Array
+	(
+		[URL] => http://ecx.images-amazon.com/images/I/41J2eItD9uL.jpg
+		[Height] => Array
+			(
+				[_] => 500
+				[Units] => pixels
+			)
+
+		[Width] => Array
+			(
+				[_] => 329
+				[Units] => pixels
+			)
+
+	)
+
+[ImageSets] => Array
+	(
+		[ImageSet] => Array
+			(
+				[SwatchImage] => Array
+					(
+						[URL] => http://ecx.images-amazon.com/images/I/41J2eItD9uL._SL30_.jpg
+						[Height] => Array
+							(
+								[_] => 30
+								[Units] => pixels
+							)
+
+						[Width] => Array
+							(
+								[_] => 20
+								[Units] => pixels
+							)
+
+					)
+
+				[SmallImage] => Array
+					(
+						[URL] => http://ecx.images-amazon.com/images/I/41J2eItD9uL._SL75_.jpg
+						[Height] => Array
+							(
+								[_] => 75
+								[Units] => pixels
+							)
+
+						[Width] => Array
+							(
+								[_] => 49
+								[Units] => pixels
+							)
+
+					)
+
+				[ThumbnailImage] => Array
+					(
+						[URL] => http://ecx.images-amazon.com/images/I/41J2eItD9uL._SL75_.jpg
+						[Height] => Array
+							(
+								[_] => 75
+								[Units] => pixels
+							)
+
+						[Width] => Array
+							(
+								[_] => 49
+								[Units] => pixels
+							)
+
+					)
+
+				[TinyImage] => Array
+					(
+						[URL] => http://ecx.images-amazon.com/images/I/41J2eItD9uL._SL110_.jpg
+						[Height] => Array
+							(
+								[_] => 110
+								[Units] => pixels
+							)
+
+						[Width] => Array
+							(
+								[_] => 72
+								[Units] => pixels
+							)
+
+					)
+
+				[MediumImage] => Array
+					(
+						[URL] => http://ecx.images-amazon.com/images/I/41J2eItD9uL._SL160_.jpg
+						[Height] => Array
+							(
+								[_] => 160
+								[Units] => pixels
+							)
+
+						[Width] => Array
+							(
+								[_] => 105
+								[Units] => pixels
+							)
+
+					)
+
+				[LargeImage] => Array
+					(
+						[URL] => http://ecx.images-amazon.com/images/I/41J2eItD9uL.jpg
+						[Height] => Array
+							(
+								[_] => 500
+								[Units] => pixels
+							)
+
+						[Width] => Array
+							(
+								[_] => 329
+								[Units] => pixels
+							)
+
+					)
+
+				[Category] => primary
+			)
+
+	)
+
+[ItemAttributes] => Array
+	(
+		[Author] => Walter Isaacson
+		[Binding] => Gebundene Ausgabe
+		[Creator] => Array
+			(
+				[0] => Array
+					(
+						[_] => Antoinette Gittinger
+						[Role] => Ãœbersetzer
+					)
+
+				[1] => Array
+					(
+						[_] => Oliver GrasmÃ¼ck
+						[Role] => Ãœbersetzer
+					)
+
+				[2] => Array
+					(
+						[_] => Dagmar Mallett
+						[Role] => Ãœbersetzer
+					)
+
+				[3] => Array
+					(
+						[_] => Elfi Martin
+						[Role] => Ãœbersetzer
+					)
+
+				[4] => Array
+					(
+						[_] => Andrea Stumpf
+						[Role] => Ãœbersetzer
+					)
+
+				[5] => Array
+					(
+						[_] => Gabriele Werbeck
+						[Role] => Ãœbersetzer
+					)
+
+			)
+
+		[EAN] => 9783570101247
+		[EANList] => Array
+			(
+				[EANListElement] => 9783570101247
+			)
+
+		[ISBN] => 357010124X
+		[IsEligibleForTradeIn] => 1
+		[Label] => C. Bertelsmann Verlag
+		[Languages] => Array
+			(
+				[Language] => Array
+					(
+						[0] => Array
+							(
+								[Name] => Deutsch
+								[Type] => Unbekannt
+							)
+
+						[1] => Array
+							(
+								[Name] => Deutsch
+								[Type] => Original
+							)
+
+						[2] => Array
+							(
+								[Name] => Deutsch
+								[Type] => Published
+							)
+
+					)
+
+			)
+
+		[ListPrice] => Array
+			(
+				[Amount] => 2499
+				[CurrencyCode] => EUR
+				[FormattedPrice] => EUR 24,99
+			)
+
+		[Manufacturer] => C. Bertelsmann Verlag
+		[NumberOfPages] => 704
+		[PackageDimensions] => Array
+			(
+				[Height] => Array
+					(
+						[_] => 181
+						[Units] => hundredths-inches
+					)
+
+				[Length] => Array
+					(
+						[_] => 913
+						[Units] => hundredths-inches
+					)
+
+				[Weight] => Array
+					(
+						[_] => 220
+						[Units] => hundredths-pounds
+					)
+
+				[Width] => Array
+					(
+						[_] => 638
+						[Units] => hundredths-inches
+					)
+
+			)
+
+		[PackageQuantity] => 1
+		[ProductGroup] => Book
+		[ProductTypeName] => ABIS_BOOK
+		[PublicationDate] => 2011-10-27
+		[Publisher] => C. Bertelsmann Verlag
+		[SKU] => 32487756
+		[Studio] => C. Bertelsmann Verlag
+		[Title] => Steve Jobs: Die autorisierte Biografie des Apple-GrÃ¼nders
+		[TradeInValue] => Array
+			(
+				[Amount] => 1875
+				[CurrencyCode] => EUR
+				[FormattedPrice] => EUR 18,75
+			)
+
+	)
+
+[OfferSummary] => Array
+	(
+		[LowestNewPrice] => Array
+			(
+				[Amount] => 2098
+				[CurrencyCode] => EUR
+				[FormattedPrice] => EUR 20,98
+			)
+
+		[LowestUsedPrice] => Array
+			(
+				[Amount] => 1750
+				[CurrencyCode] => EUR
+				[FormattedPrice] => EUR 17,50
+			)
+
+		[LowestCollectiblePrice] => Array
+			(
+				[Amount] => 2499
+				[CurrencyCode] => EUR
+				[FormattedPrice] => EUR 24,99
+			)
+
+		[TotalNew] => 78
+		[TotalUsed] => 27
+		[TotalCollectible] => 1
+		[TotalRefurbished] => 0
+	)
+
+[Offers] => Array
+	(
+		[TotalOffers] => 1
+		[TotalOfferPages] => 1
+		[MoreOffersUrl] => http://www.amazon.de/gp/offer-listing/357010124X%3FSubscriptionId%3DAKIAJTEMA46KTUYNBXEA%26tag%3Dfanzentra-21%26linkCode%3Dsp1%26camp%3D2025%26creative%3D12738%26creativeASIN%3D357010124X
+		[Offer] => Array
+			(
+				[OfferAttributes] => Array
+					(
+						[Condition] => New
+					)
+
+				[OfferListing] => Array
+					(
+						[OfferListingId] => jH%2FjI0nkxytbVGC7A2dSzLivp2Yj%2FsdnREAhtXt9Q4qSRLgDImMUokLjd%2FC8zfwmoBsi1WIfKoYtbTgywfzLId5PSdQPWICkDRQBaHCbzbY%3D
+						[Price] => Array
+							(
+								[Amount] => 2499
+								[CurrencyCode] => EUR
+								[FormattedPrice] => EUR 24,99
+							)
+
+						[Availability] => GewÃ¶hnlich versandfertig in 24 Stunden
+						[AvailabilityAttributes] => Array
+							(
+								[AvailabilityType] => now
+								[MinimumHours] => 0
+								[MaximumHours] => 0
+							)
+
+						[IsEligibleForSuperSaverShipping] => 1
+					)
+
+			)
+
+	)
+
+[CustomerReviews] => Array
+	(
+		[IFrameURL] => http://www.amazon.de/reviews/iframe?akid=AKIAJTEMA46KTUYNBXEA&alinkCode=sp1&asin=357010124X&atag=fanzentra-21&exp=2011-12-03T19%3A18%3A24Z&v=2&sig=ZrVJseAqteWlvHcBhb4buH2fBpqeQrTNiEYSFBHhgZw%3D
+		[HasReviews] => 1
+	)
+
+[SimilarProducts] => Array
+	(
+		[SimilarProduct] => Array
+			(
+				[0] => Array
+					(
+						[ASIN] => 3424200441
+						[Title] => Ãœberzeugen wie Steve Jobs: Das Erfolgsgeheimnis seiner PrÃ¤sentationen
+					)
+
+				[1] => Array
+					(
+						[ASIN] => 3596170796
+						[Title] => Steve Jobs: Und die Erfolgsgeschichte von Apple
+					)
+
+				[2] => Array
+					(
+						[ASIN] => 3424200492
+						[Title] => Steve Jobs - iLeadership: Mit Charisma und Coolness an die Spitze
+					)
+
+				[3] => Array
+					(
+						[ASIN] => 3830332602
+						[Title] => iVolution: Cartoons fÃ¼r Apple-Fans
+					)
+
+				[4] => Array
+					(
+						[ASIN] => 3942888971
+						[Title] => iSteve: Steve Jobs erklÃ¤rt Steve Jobs
+					)
+
+			)
+
+	)
+
+[BrowseNodes] => Array
+	(
+		[BrowseNode] => Array
+			(
+				[0] => Array
+					(
+						[BrowseNodeId] => 187314
+						[Name] => Wirtschaft
+						[Ancestors] => Array
+							(
+								[BrowseNode] => Array
+									(
+										[BrowseNodeId] => 187254
+										[Name] => Biografien & Erinnerungen
+										[Ancestors] => Array
+											(
+												[BrowseNode] => Array
+													(
+														[BrowseNodeId] => 541686
+														[Name] => Kategorien
+														[IsCategoryRoot] => 1
+														[Ancestors] => Array
+															(
+																[BrowseNode] => Array
+																	(
+																		[BrowseNodeId] => 186606
+																		[Name] => BÃ¼cher
+																	)
+
+															)
+
+													)
+
+											)
+
+									)
+
+							)
+
+					)
+
+				[1] => Array
+					(
+						[BrowseNodeId] => 178182031
+						[Name] => General AAS
+						[Ancestors] => Array
+							(
+								[BrowseNode] => Array
+									(
+										[BrowseNodeId] => 187254
+										[Name] => Biografien & Erinnerungen
+										[Ancestors] => Array
+											(
+												[BrowseNode] => Array
+													(
+														[BrowseNodeId] => 541686
+														[Name] => Kategorien
+														[IsCategoryRoot] => 1
+														[Ancestors] => Array
+															(
+																[BrowseNode] => Array
+																	(
+																		[BrowseNodeId] => 186606
+																		[Name] => BÃ¼cher
+																	)
+
+															)
+
+													)
+
+											)
+
+									)
+
+							)
+
+					)
+
+				[2] => Array
+					(
+						[BrowseNodeId] => 165991031
+						[Name] => Mac Hardware
+						[Children] => Array
+							(
+								[BrowseNode] => Array
+									(
+										[0] => Array
+											(
+												[BrowseNodeId] => 165992031
+												[Name] => Imac
+											)
+
+										[1] => Array
+											(
+												[BrowseNodeId] => 165993031
+												[Name] => Iphone
+											)
+
+										[2] => Array
+											(
+												[BrowseNodeId] => 165994031
+												[Name] => Ipod
+											)
+
+									)
+
+							)
+
+						[Ancestors] => Array
+							(
+								[BrowseNode] => Array
+									(
+										[BrowseNodeId] => 165988031
+										[Name] => Mac
+										[Ancestors] => Array
+											(
+												[BrowseNode] => Array
+													(
+														[BrowseNodeId] => 124
+														[Name] => Computer & Internet
+														[Ancestors] => Array
+															(
+																[BrowseNode] => Array
+																	(
+																		[BrowseNodeId] => 541686
+																		[Name] => Kategorien
+																		[IsCategoryRoot] => 1
+																		[Ancestors] => Array
+																			(
+																				[BrowseNode] => Array
+																					(
+																						[BrowseNodeId] => 186606
+																						[Name] => BÃ¼cher
+																					)
+
+																			)
+
+																	)
+
+															)
+
+													)
+
+											)
+
+									)
+
+							)
+
+					)
+
+				[3] => Array
+					(
+						[BrowseNodeId] => 771391031
+						[Name] => BÃ¼cher Trade-In
+						[Ancestors] => Array
+							(
+								[BrowseNode] => Array
+									(
+										[BrowseNodeId] => 401380011
+										[Name] => Regular Stores
+										[Ancestors] => Array
+											(
+												[BrowseNode] => Array
+													(
+														[BrowseNodeId] => 507854
+														[Name] => Shops
+														[Ancestors] => Array
+															(
+																[BrowseNode] => Array
+																	(
+																		[BrowseNodeId] => 186606
+																		[Name] => BÃ¼cher
+																	)
+
+															)
+
+													)
+
+											)
+
+									)
+
+							)
+
+					)
+
+				[4] => Array
+					(
+						[BrowseNodeId] => 492558011
+						[Name] => Gebundene Ausgabe
+						[Ancestors] => Array
+							(
+								[BrowseNode] => Array
+									(
+										[BrowseNodeId] => 492557011
+										[Name] => Format (binding_browse-bin)
+										[Ancestors] => Array
+											(
+												[BrowseNode] => Array
+													(
+														[BrowseNodeId] => 362683011
+														[Name] => Refinements
+														[Ancestors] => Array
+															(
+																[BrowseNode] => Array
+																	(
+																		[BrowseNodeId] => 186606
+																		[Name] => BÃ¼cher
+																	)
+
+															)
+
+													)
+
+											)
+
+									)
+
+							)
+
+					)
+
+				[5] => Array
+					(
+						[BrowseNodeId] => 616963011
+						[Name] => Condition (condition-type)
+						[Children] => Array
+							(
+								[BrowseNode] => Array
+									(
+										[0] => Array
+											(
+												[BrowseNodeId] => 616965011
+												[Name] => Neu
+											)
+
+										[1] => Array
+											(
+												[BrowseNodeId] => 616967011
+												[Name] => Gebraucht
+											)
+
+									)
+
+							)
+
+						[Ancestors] => Array
+							(
+								[BrowseNode] => Array
+									(
+										[BrowseNodeId] => 362683011
+										[Name] => Refinements
+										[Ancestors] => Array
+											(
+												[BrowseNode] => Array
+													(
+														[BrowseNodeId] => 186606
+														[Name] => BÃ¼cher
+													)
+
+											)
+
+									)
+
+							)
+
+					)
+
+				[6] => Array
+					(
+						[BrowseNodeId] => 182014031
+						[Name] => Normale GrÃ¶ÃŸe
+						[Ancestors] => Array
+							(
+								[BrowseNode] => Array
+									(
+										[BrowseNodeId] => 182013031
+										[Name] => Font Size (format_browse-bin)
+										[Ancestors] => Array
+											(
+												[BrowseNode] => Array
+													(
+														[BrowseNodeId] => 362683011
+														[Name] => Refinements
+														[Ancestors] => Array
+															(
+																[BrowseNode] => Array
+																	(
+																		[BrowseNodeId] => 186606
+																		[Name] => BÃ¼cher
+																	)
+
+															)
+
+													)
+
+											)
+
+									)
+
+							)
+
+					)
+
+				[7] => Array
+					(
+						[BrowseNodeId] => 1321936031
+						[Name] => FachbÃ¼cher_ohneKindle
+						[Ancestors] => Array
+							(
+								[BrowseNode] => Array
+									(
+										[BrowseNodeId] => 425394031
+										[Name] => Custom Stores
+										[Ancestors] => Array
+											(
+												[BrowseNode] => Array
+													(
+														[BrowseNodeId] => 425393031
+														[Name] => Self Service
+														[Ancestors] => Array
+															(
+																[BrowseNode] => Array
+																	(
+																		[BrowseNodeId] => 186606
+																		[Name] => BÃ¼cher
+																	)
+
+															)
+
+													)
+
+											)
+
+									)
+
+							)
+
+					)
+
+				[8] => Array
+					(
+						[BrowseNodeId] => 1345892031
+						[Name] => Biografien & Erinnerungen
+						[Ancestors] => Array
+							(
+								[BrowseNode] => Array
+									(
+										[BrowseNodeId] => 1343890031
+										[Name] => Jahresbestseller 2011
+										[Ancestors] => Array
+											(
+												[BrowseNode] => Array
+													(
+														[BrowseNodeId] => 425394031
+														[Name] => Custom Stores
+														[Ancestors] => Array
+															(
+																[BrowseNode] => Array
+																	(
+																		[BrowseNodeId] => 425393031
+																		[Name] => Self Service
+																		[Ancestors] => Array
+																			(
+																				[BrowseNode] => Array
+																					(
+																						[BrowseNodeId] => 186606
+																						[Name] => BÃ¼cher
+																					)
+
+																			)
+
+																	)
+
+															)
+
+													)
+
+											)
+
+									)
+
+							)
+
+					)
+
+				[9] => Array
+					(
+						[BrowseNodeId] => 1369631031
+						[Name] => Partner
+						[Ancestors] => Array
+							(
+								[BrowseNode] => Array
+									(
+										[BrowseNodeId] => 1369630031
+										[Name] => Geschenkideen
+										[Ancestors] => Array
+											(
+												[BrowseNode] => Array
+													(
+														[BrowseNodeId] => 425394031
+														[Name] => Custom Stores
+														[Ancestors] => Array
+															(
+																[BrowseNode] => Array
+																	(
+																		[BrowseNodeId] => 425393031
+																		[Name] => Self Service
+																		[Ancestors] => Array
+																			(
+																				[BrowseNode] => Array
+																					(
+																						[BrowseNodeId] => 186606
+																						[Name] => BÃ¼cher
+																					)
+
+																			)
+
+																	)
+
+															)
+
+													)
+
+											)
+
+									)
+
+							)
+
+					)
+
+			)
+
+	)

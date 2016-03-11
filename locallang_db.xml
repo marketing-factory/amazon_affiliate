@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'amazon_affiliate'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_amazonaffiliate_products">Amazon Products</label>
+			<label index="tx_amazonaffiliate_products.name">Product Name</label>
+			<label index="tx_amazonaffiliate_products.status">Product Status</label>
+			<label index="tx_amazonaffiliate_products.asin">Product ASIN</label>
+			<label index="tt_content.list_type_piproducts">Amazon Products</label>
+			<label index="tt_content.tx_amazonaffiliate_amazon_asin">Amazon ASIN</label>
+			<label index="tt_content.tx_amazonaffiliate_image_caption">Caption for Amazon Image</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="tx_amazonaffiliate_products">Amazon Produkte</label>
+			<label index="tx_amazonaffiliate_products.name">Produkt Name</label>
+			<label index="tx_amazonaffiliate_products.status">Produkt Status</label>
+			<label index="tx_amazonaffiliate_products.asin">Produkt ASIN</label>
+			<label index="tt_content.list_type_piproducts">Amazon Products</label>
+			<label index="tt_content.tx_amazonaffiliate_amazon_asin">Amazon ASIN</label>
+			<label index="tt_content.tx_amazonaffiliate_image_caption">Bildunterschrift Amazon Bild</label>
+		</languageKey>
+	</data>
+</T3locallang>

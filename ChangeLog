@@ -1,0 +1,278 @@
+2012-12-05 Sebastian Fischer  <sf@marketing-factory.de>
+        cleanup rener_image methode
+        raised version to 0.9.13
+
+2012-11-26 Simon Schmidt <sfs@marketing-factory.de>
+        Bugfix 17829
+        raised version to 0.9.12
+
+2012-10-08 Simon Schmidt <sfs@marketing-factory.de>
+	add div for textpic with amazon
+	raised version to 0.9.11
+
+
+2012-03-02 Simon Schmidt <sfs@marketing-factory.de>
+	add new books rendering and bugfix 16425
+	raised version to 0.9.10
+
+
+2012-03-02 Simon Schmidt <sfs@marketing-factory.de>
+	bugfix image selection
+	raised version to 0.9.9
+
+
+2012-03-02 Simon Schmidt <sfs@marketing-factory.de>
+	update image selection
+	raised version to 0.9.8
+
+2012-01-24  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Raised Version to 0.9.7
+
+	Added amazon hover for API generated Images
+
+	Fixed image size problem by clearing a gif builder global variable with information of last generated image
+
+	fixed bug in getImageSizeName
+
+2012-01-14  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Fixed amazon image element
+
+2012-01-05  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Use smallest image version for given dimensions
+
+2012-01-04  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Get images in Text/Image Content-Elements from the api and resize them by setting the HTML attributes to the given values
+
+2011-12-18  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Raised Version to 0.9.6
+
+	added some code documentation
+
+	New Backend-Module-Function to display invalid widgets
+
+2011-12-16  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Do not save Record if an invalid ASIN is given
+
+2011-12-15  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Do not render and display a Widget if the minimum count of products is not reached
+
+2011-12-14  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Raised version to 0.9.5
+
+	Fixed bug in tx_amazonaffiliate_renderhooks
+
+	Removed unused query parser inclusion wich produces in error in TYPO3 4.4
+
+2011-12-14  sfs  <sfs@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Fixed bug in class.tx_amazonaffiliate_renderhooks.php if no amazonImgList is set.
+
+2011-12-14  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Raised Version to 0.9.3
+
+	Fixed bug in Scheduler task and added a detail Page with edit link to the backend module
+
+	Cronjob should now find all ASIN's which are used in any record and deletes old product records
+
+2011-12-09  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Raised Extension Version to 0.9.2 after Testing
+
+	added a description for the new marker generation in TypoScript
+
+	Added a stripHtml to the Amazon product title field
+
+	Added TypoScript cropHtml example for the Title field
+
+	Changed the TypoScript Field definition and Marker rendering
+
+	removed comment with example data
+
+	Fixed the default Values in the Plugin-flexform
+
+2011-12-07  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Show only a error Message and do not delete an invalid ASIN which has been entered in a field
+
+	ASIN in the tt_content field for images are not validated and added to the product-table
+
+	Modified link picker for the tt_content ASIN Field
+
+	Fixed product title field definition in template and TypoScript
+
+2011-12-05  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Added missing mod1/index.php
+
+2011-12-05  is  <is@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	added a * to have valid phpdoc comments
+
+2011-12-05  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	fixed Amazon-ASIN field integration for Image/TextImage elements
+
+2011-12-02  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Raised Extension Version to 0.9.0 after Testing
+
+	Modified getItemAttribute function and added basic template for product listing
+	You can now access all amazon product attributes width getItemAttribute
+	added a file with an example structure of the amazon product
+	added field's (examples) and markers to the template
+	Added some descriptions
+
+
+	Add amazon Hover JS if a Image or TextImage Element with ASIN's is displayed
+
+	Added parameter to disable hover in images. but looks like amazon does not support it here
+
+	Added missing TypoScript to register the new ImageRendering
+
+	moved AmazonAsinList in Image elements to the imagefiles palette
+
+	Added Frontend for the Image and TextImage ASIN elements
+	Modified the full fronted rendering for Image and TextImage element to display the images with full default typescript support
+
+
+	Changed "explode()" to t3lib_div:trimExplode()
+
+	Implemented the minimum count for products in the ASINList widget
+
+	Added dropdown in the Extension Configuration for the Amazon Country
+
+	Extended the Widget Template generation with subparts
+
+	Added some comments to setup.txt
+
+	constants.txt cleanup
+
+2011-12-01  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Changed display conditions for "asinlist" and "search term" in the flexform
+
+	Changed display conditions for "asinlist" and "search term" in the flexform
+
+	Fixed bug in ASIN validation
+	ASIN's in flexforms are not validated
+
+
+	Insert Amazon Widget JavaScript after each widget
+	The Widget-JavaScript has to be added after each widget
+
+
+	Added ATagParam "name" to prevent the amazon hover if it should not bet displayed
+
+	Added field name to the FormField-Validation Error message
+
+	Changed ASIN validation
+	Each field is now checked for a ASIN which will be validated
+
+
+	Catch exceptions and log errors if there is something wrong with the amazon service
+
+	reformatted code
+
+	Changed exec_SELECTgetSingleRow to exec_SELECTgetRows for compatibility < TYPO3 4.5
+
+	Log and Display error if template was not found
+
+	added missing urlStdWrap
+
+	Added urlStdWrap
+
+	Added additional fields to RTE Link picker
+
+2011-11-30  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Added methods to include the amazon javascripts
+
+	Added linkhandler and linkpicker
+
+	Fixed typo in author name
+
+2011-11-29  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Moved Backendmodule to a new main section
+
+	Fixed bugs in product caching and product validation
+
+	added a scheduler Task with validates all products
+
+	Fixed bug in Product Cache
+
+	Added Key for ASIN to the database table
+
+2011-11-28  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Fill tt_content:tx_amazonaffiliate_amazon_asin field also if ASIN-list is in the flexform
+	The ASIN-list will now be copied to the "tx_amazonaffiliate_amazon_asin" field in the tt_content table
+
+
+	Fixed bug in product class
+	A new record was created each time the validate method was called
+
+
+	Widget width and height can be configured by TypoScript
+	Added some comments to the typoscript
+
+
+2011-11-26  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Added Basic widget functionality
+	Added some Widget fields to the BE-Form
+	Added Widget Template
+	Added Widget-generation to piproducts
+
+
+	Removed duplicate entries and added searchTerm field
+	removed items with identical id from the browseNodes selection
+	added a searchTerm field to the BE-Form
+
+
+	Added BrowseNode Selection to the BE-Form
+
+	moved productMarker generation to a function
+
+2011-11-25  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Added template and Product TypoScript Rendering for Productlisting
+	Added a dummy template
+	Added template and rendering logic to the product listing in piproducts
+	Added some demo typoscript
+
+
+	Added performance improvements
+	Added a local cache so we do net have to request amazon each time a product is requested
+	Added a method to preload multiple products to the local cache
+	modified ChangeLog format
+
+
+2011-11-23  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	added Changelog
+
+	removed piwidget added basic flexform configuration to piproducts
+
+	use ext_autoload to load classes TCA eval class added modified validation method
+
+	$useCachedData in product changed to instance variable
+
+2011-11-22  sascha.at.sascha-egerer.de  <sascha.at.sascha-egerer.de@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Added basic structure and classes
+
+2011-11-09  root  <root@9e91bfde-4800-4690-8e8e-f1a750f0ad05>
+
+	Applied the default svn:ignore properties
+
+	Initial Import

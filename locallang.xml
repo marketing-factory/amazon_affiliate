@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension 'amazon_affiliate'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="piproducts_title">Amazon Products</label>
+			<label index="piproducts_plus_wiz_description">Amazon Products</label>
+			<label index="CheckAsin.name">Check ASIN</label>
+			<label index="CheckAsin.description">Check if all ASIN's are valid</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="piproducts_title">Amazon Produkte</label>
+			<label index="piproducts_plus_wiz_description">Amazon Produkte</label>
+		</languageKey>
+	</data>
+</T3locallang>
