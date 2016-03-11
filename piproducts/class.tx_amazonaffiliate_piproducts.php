@@ -251,7 +251,8 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
                     if (!isset($item['ItemAttributes']) ||
                         !isset($item['ItemAttributes']['ListPrice']) ||
                         !isset($item['ItemAttributes']['FormattedPrice']) ||
-                        $item['ItemAttributes']['ListPrice']['FormattedPrice'] == ''
+                        $item['ItemAttributes']['ListPrice']['FormattedPrice'] == '' ||
+                        $item['ItemAttributes']['ListPrice']['FormattedPrice'] == 'EUR 0,00'
                     ) {
                         $item['ItemAttributes']['ListPrice']['FormattedPrice'] =
                             $item['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
@@ -260,7 +261,9 @@ class tx_amazonaffiliate_piproducts extends AbstractPlugin
                         !isset($item['MediumImage']['URL']) ||
                         $item['MediumImage']['URL'] == ''
                     ) {
-                        $item['MediumImage']['URL'] = $item['ImageSets']['ImageSet']['MediumImage']['URL'];
+                        $fallbackImage = isset($item['ImageSets']['ImageSet']['MediumImage']) ?
+                            $item['ImageSets']['ImageSet'] : current($item['ImageSets']['ImageSet']);
+                        $item['MediumImage']['URL'] = $fallbackImage['MediumImage']['URL'];
                     }
 
                     if (is_array($item) &&

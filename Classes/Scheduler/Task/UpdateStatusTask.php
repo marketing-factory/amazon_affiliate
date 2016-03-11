@@ -70,14 +70,13 @@ class UpdateStatusTask extends AbstractTask
         $this->amazonEcs->preloadProducts($asinList);
 
         foreach ($asinList as $asin) {
-
             /**
              * just load the data from amazon. if the product is invalid the status
              * is updated automatically
              *
              * @var Product $product
              */
-            $product = GeneralUtility::makeInstance('tx_amazonaffiliate_product', $asin);
+            $product = GeneralUtility::makeInstance(Product::class, $asin);
         }
 
         return true;

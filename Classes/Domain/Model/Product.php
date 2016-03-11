@@ -423,11 +423,12 @@ class Product
     public function setAmazonProduct($amazonProduct)
     {
         if (!is_null($amazonProduct)) {
-            if ($amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] == '') {
+            if ($amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] == '' || $amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] == 'EUR 0,00') {
                 $amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] = $amazonProduct['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
             }
-            if ($amazonProduct['MediumImage']['URL'] == '') {
-                $amazonProduct['MediumImage']['URL'] = $amazonProduct['ImageSets']['ImageSet']['MediumImage']['URL'];
+            if (empty($amazonProduct['MediumImage']['URL'])) {
+                $fallbackImage = isset($amazonProduct['ImageSets']['ImageSet']['MediumImage']) ? $amazonProduct['ImageSets']['ImageSet'] : current($amazonProduct['ImageSets']['ImageSet']);
+                $amazonProduct['MediumImage']['URL']  = $fallbackImage['MediumImage']['URL'];
             }
             $this->amazonProduct = $amazonProduct;
         }
