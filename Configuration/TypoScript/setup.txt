@@ -30,10 +30,10 @@ plugin.tx_amazonaffiliate_piproducts {
 			# It is linked with the amazon product link
 			title = AMAZON_ATTR
 			title.attrName = ItemAttributes.Title
-			title.wrap = <b>|</b>
-			title.cropHTML = 50|..|1
-			title.typolink.parameter.data = register:lastProductLink
-			title.stripHtml = 1
+			title.stdWrap.wrap = <b>|</b>
+			title.stdWrap.cropHTML = 50|..|1
+			title.stdWrap.typolink.parameter.data = register:lastProductLink
+			title.stdWrap.stripHtml = 1
 
 			# map the ASIN of the product to the ASIN marker
 			asin = AMAZON_ATTR
@@ -50,11 +50,27 @@ plugin.tx_amazonaffiliate_piproducts {
 			content.attrName = EditorialReviews.EditorialReview.Content
 			content.stdWrap.stripHtml= 1
 			content.stdWrap.cropHTML = 150 | ... | 1
-			content.stdWrap.required= 1
+			content.stdWrap.required = 1
 
 			price = AMAZON_ATTR
 			price.attrName = ItemAttributes.ListPrice.FormattedPrice
-			price.noTrimWrap = |<b>Preis:</b> |<br/>|
+			price.stdWrap.noTrimWrap = |<b>Preis:</b> |<br/>|
+			price.stdWrap.required = 1
+
+			priceold = AMAZON_ATTR
+			priceold.attrName = ItemAttributes.OldListPrice.FormattedPrice
+			priceold.stdWrap.noTrimWrap = |<b>Preis:</b><span class="oldprice"> |</span>|
+			priceold.stdWrap.required = 1
+
+			pricenew = AMAZON_ATTR
+			pricenew.attrName = ItemAttributes.NewListPrice.FormattedPrice
+			pricenew.stdWrap.noTrimWrap = |<span class="newprice"> |</span>|
+			pricenew.stdWrap.required = 1
+
+			savedpercent = AMAZON_ATTR
+			savedpercent.attrName = ItemAttributes.SavedPrice.Percent
+			savedpercent.stdWrap.noTrimWrap = |<span class="savedpercent"> |</span>|
+			savedpercent.stdWrap.required = 1
 
 			buttonurl = AMAZON_ATTR
 			buttonurl.attrName = DetailPageURL
@@ -85,8 +101,8 @@ plugin.tx_amazonaffiliate_piproducts {
 
     	title = AMAZON_ATTR
     	title.attrName = ItemAttributes.Title
-    	title.wrap = <b>|</b>
-    	title.typolink.parameter.data = register:lastProductLink
+    	title.stdWrap.wrap = <b>|</b>
+    	title.stdWrap.typolink.parameter.data = register:lastProductLink
 
     	author = AMAZON_ATTR
     	author.attrName = ItemAttributes.Author
@@ -103,7 +119,7 @@ plugin.tx_amazonaffiliate_piproducts {
     	content.stdWrap.stripHtml= 1
     	content.stdWrap.cropHTML = 150 | ... | 1
     	content.stdWrap.wrap = <b>Inhalt:</b><br/>
-    	content.stdWrap.required= 1
+    	content.stdWrap.required = 1
 
     	date = AMAZON_ATTR
     	date.attrName = ItemAttributes.PublicationDate
@@ -111,7 +127,23 @@ plugin.tx_amazonaffiliate_piproducts {
 
     	price = AMAZON_ATTR
     	price.attrName = ItemAttributes.ListPrice.FormattedPrice
-    	price.noTrimWrap = |<b>Preis:</b> |<br/>|
+		price.stdWrap.noTrimWrap = |<b>Preis:</b> |<br/>|
+		price.stdWrap.required = 1
+
+		priceold = AMAZON_ATTR
+		priceold.attrName = ItemAttributes.OldListPrice.FormattedPrice
+		priceold.stdWrap.noTrimWrap = |<b>Preis:</b><span class="oldprice"> |</span>|
+		priceold.stdWrap.required = 1
+
+		pricenew = AMAZON_ATTR
+		pricenew.attrName = ItemAttributes.NewListPrice.FormattedPrice
+		pricenew.stdWrap.noTrimWrap = |<span class="newprice"> |</span>|
+		pricenew.stdWrap.required = 1
+
+		savedpercent = AMAZON_ATTR
+		savedpercent.attrName = ItemAttributes.SavedPrice.Percent
+		savedpercent.stdWrap.noTrimWrap = |<span class="savedpercent"> |</span>|
+		savedpercent.stdWrap.required = 1
 
     	isbn = AMAZON_ATTR
     	isbn.attrName = ItemAttributes.ISBN
