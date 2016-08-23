@@ -295,8 +295,14 @@ class Product
             $amazonProductValue = '';
         }
 
+        $amazonProductValueBackup = $amazonProductValue;
+
         if ($charset != "utf-8") {
             $amazonProductValue = iconv("utf-8", $charset, $amazonProductValue);
+        }
+
+        if ($amazonProductValue == false) {
+            $amazonProductValue = $amazonProductValueBackup;
         }
 
         return $amazonProductValue;
@@ -425,10 +431,36 @@ class Product
         if (!is_null($amazonProduct)) {
             if ($amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] == '' || $amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] == 'EUR 0,00') {
                 $amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'] = $amazonProduct['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
+                $amazonProduct['ItemAttributes']['ListPrice']['Amount'] = $amazonProduct['Offers']['Offer']['OfferListing']['Price']['Amount'];
             }
+
+            if (isset($amazonProduct['Offers']) &&
+                isset($amazonProduct['Offers']['Offer']) &&
+                isset($amazonProduct['Offers']['Offer']['OfferAttributes'])
+            ) {
+                if (strtolower($amazonProduct['Offers']['Offer']['OfferAttributes']['Condition']) == 'new' &&
+                    isset($amazonProduct['Offers']['Offer']['OfferListing']['Price']) &&
+                    $amazonProduct['ItemAttributes']['ListPrice']['Amount'] > $amazonProduct['Offers']['Offer']['OfferListing']['Price']['Amount']
+                ) {
+                    $amazonProduct['ItemAttributes']['OldListPrice']['FormattedPrice'] = $amazonProduct['ItemAttributes']['ListPrice']['FormattedPrice'];
+                    $amazonProduct['ItemAttributes']['OldListPrice']['Amount'] = $amazonProduct['ItemAttributes']['ListPrice']['Amount'];
+                    $amazonProduct['ItemAttributes']['NewListPrice']['FormattedPrice'] = $amazonProduct['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
+                    unset($amazonProduct['ItemAttributes']['ListPrice']);
+                    $amazonProduct['ItemAttributes']['NewListPrice']['Amount'] = $amazonProduct['Offers']['Offer']['OfferListing']['Price']['Amount'];
+                    $amazonProduct['ItemAttributes']['SavedPrice']['FormattedPrice'] = $amazonProduct['Offers']['Offer']['OfferListing']['AmountSaved']['FormattedPrice'];
+                    $amazonProduct['ItemAttributes']['SavedPrice']['Percent'] = (int) ($amazonProduct['Offers']['Offer']['OfferListing']['AmountSaved']['Amount'] / $amazonProduct['ItemAttributes']['OldListPrice']['Amount'] * 100);
+                }
+            }
+
+
             if (empty($amazonProduct['MediumImage']['URL'])) {
-                $fallbackImage = isset($amazonProduct['ImageSets']['ImageSet']['MediumImage']) ? $amazonProduct['ImageSets']['ImageSet'] : current($amazonProduct['ImageSets']['ImageSet']);
-                $amazonProduct['MediumImage']['URL']  = $fallbackImage['MediumImage']['URL'];
+                $fallbackImage = isset($amazonProduct['ImageSets']['ImageSet']['MediumImage']) ? $amazonProduct['ImageSets']['ImageSet'] : false;
+                if (!$fallbackImage) {
+                    $fallbackImage = (isset($amazonProduct['ImageSets']['ImageSet']) && is_array($amazonProduct['ImageSets']['ImageSet'])) ? current($amazonProduct['ImageSets']['ImageSet']) : false;
+                }
+                if ($fallbackImage) {
+                    $amazonProduct['MediumImage']['URL'] = $fallbackImage['MediumImage']['URL'];
+                }
             }
             $this->amazonProduct = $amazonProduct;
         }
