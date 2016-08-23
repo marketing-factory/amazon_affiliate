@@ -11,14 +11,70 @@
 ###PRODUCTS###
 <div class="amazon_affiliate_products">
 	###PRODUCT_ITEMS###
-	<div class="amazon_affiliate_product">
-		<h2>###PRODUCT_TITLE###</h2>
-		<div class="mediumImage">###PRODUCT_MEDIUMIMAGE###</div>
-		###PRODUCT_CONTENT###
+	<div class="amazon_affiliate_product affiliate_product_box_contrast">
+		<div class="amazonProduct">
+			<div class="amazonPix ratioBox">
+
+				<div class="ratioBoxImageWrap">
+					###PRODUCT_MEDIUMIMAGE###
+				</div>
+			</div>
+			<div class="amazonText">
+				<p class="bodytext">
+					###PRODUCT_TITLE###
+				</p>
+				###PRODUCT_SAVEDPERCENT###
+				<p class="bodytext">###PRODUCT_CONTENT###</p>
+				<p class="bodytext">
+					###PRODUCT_PRICE### ###PRODUCT_PRICEOLD### ###PRODUCT_PRICENEW###
+				</p>
+			</div>
+			<br/>
+
+			<a class="productlink" target="_blank" href="###PRODUCT_BUTTONURL###" title="Jetzt kaufen bei amazon.de">
+				Jetzt kaufen bei amazon.de
+			</a>
+
+		</div>
 	</div>
 	###PRODUCT_ITEMS###
 </div>
 ###PRODUCTS###
+
+
+###BOOKS###
+<div class="amazon_affiliate_products">
+	###PRODUCT_ITEMS###
+	<div class="amazon_affiliate_product affiliate_product_box_contrast">
+		<div class="amazonProduct ">
+			<div class="amazonPix">
+				<div class="ratioBoxImageWrap">
+					###PRODUCT_MEDIUMIMAGE###
+				</div>
+			</div>
+			<div class="amazonText">
+				<p class="bodytext">
+					###PRODUCT_TITLE###
+				</p>
+				###PRODUCT_SAVEDPERCENT###
+				<p class="bodytext">
+					###PRODUCT_AUTHOR###
+					###PRODUCT_PRICE### ###PRODUCT_PRICEOLD### ###PRODUCT_PRICENEW###
+					###PRODUCT_DATE###
+					###PRODUCT_ISBN###
+				</p>
+				<p class="bodytext">###PRODUCT_CONTENT###</p>
+			</div>
+			<br/>
+
+			<a class="booklink" target="_blank" href="###PRODUCT_BUTTONURL###">
+				Jetzt kaufen bei amazon.de
+			</a>
+		</div>
+	</div>
+	###PRODUCT_ITEMS###
+</div>
+###BOOKS###
 
 
 
